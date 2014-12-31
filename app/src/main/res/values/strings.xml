@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">OCRDemo</string>
+    <string name="TAKE_PHOTO">take photo</string>
+    <string name="PHOTO_DESCRIPTION">picture</string>
+</resources>
