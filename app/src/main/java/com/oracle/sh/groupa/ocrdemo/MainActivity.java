@@ -2,6 +2,7 @@ package com.oracle.sh.groupa.ocrdemo;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +11,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -27,29 +27,38 @@ public class MainActivity extends Activity {
 
     private static final int TAKE_PHOTO = 1;
     private static final int CROP_PHOTO = 2;
-    private Button takePhoto;
+    private Button takePhotoButton;
     private ImageView picture;
-    private Uri imageUri;
+    private ProgressDialog dialog;
     private TextView textView;
-    private String recognizedText;
 
-    private static Handler handler=new Handler();
+    private String recognizedText;
+    private Bitmap bitmap;
+    private Uri imageUri;
+
+
+    private static Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        takePhoto = (Button) findViewById(R.id.take_photo);
+        takePhotoButton = (Button) findViewById(R.id.take_photo);
         picture = (ImageView) findViewById(R.id.photo);
         textView = (TextView) findViewById(R.id.recognized_text);
 
-        takePhoto.setOnClickListener(new View.OnClickListener() {
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("info");
+        dialog.setMessage("recognizing...");
+        dialog.setCancelable(false);
+
+        takePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File outputImage = new File(Environment.getExternalStorageDirectory(),"tempImage.jpg");
-                try{
-                    if(outputImage.exists()){
+                File outputImage = new File(Environment.getExternalStorageDirectory(), "tempImage.jpg");
+                try {
+                    if (outputImage.exists()) {
                         outputImage.delete();
                     }
                     outputImage.createNewFile();
@@ -58,8 +67,8 @@ public class MainActivity extends Activity {
                 }
                 imageUri = Uri.fromFile(outputImage);
                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-                startActivityForResult(intent,TAKE_PHOTO);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, TAKE_PHOTO);
             }
         });
     }
@@ -67,40 +76,26 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        switch (requestCode){
+        switch (requestCode) {
             case TAKE_PHOTO:
-                if(resultCode==RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Intent intent = new Intent("com.android.camera.action.CROP");
-                    intent.setDataAndType(imageUri,"image/*");
-                    intent.putExtra("scale",true);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-                    startActivityForResult(intent,CROP_PHOTO);
+                    intent.setDataAndType(imageUri, "image/*");
+                    intent.putExtra("scale", true);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    startActivityForResult(intent, CROP_PHOTO);
                 }
                 break;
             case CROP_PHOTO:
-                if(resultCode==RESULT_OK){
-                    try{
-                        final Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        Log.d("a","a");
+                if (resultCode == RESULT_OK) {
+                    try {
+                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        bitmap = PicUtils.gray2Binary(bitmap);
                         picture.setImageBitmap(bitmap);
-
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        recognizedText = OcrUtils.recognizePic(bitmap);
-                                        textView.setText(recognizedText);
-                                    }
-                                });
-                            }
-                        }).start();
-
-
+                        dialog.show();
+                        recogThread.start();
 
                     } catch (Exception e) {
-                        Log.d("bb","bb");
                         e.printStackTrace();
                     }
                 }
@@ -109,5 +104,19 @@ public class MainActivity extends Activity {
                 break;
         }
     }
+
+    private Thread recogThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    recognizedText = OcrUtils.recognizePic(bitmap);
+                    textView.setText(recognizedText);
+                    dialog.dismiss();
+                }
+            });
+        }
+    });
 
 }
