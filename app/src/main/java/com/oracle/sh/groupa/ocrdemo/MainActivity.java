@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
@@ -27,6 +28,10 @@ public class MainActivity extends Activity {
 
     private static final int TAKE_PHOTO = 1;
     private static final int CROP_PHOTO = 2;
+
+    private static final int TEXT_RECOGNIZED = 3;
+
+
     private Button takePhotoButton;
     private ImageView picture;
     private ProgressDialog dialog;
@@ -37,7 +42,17 @@ public class MainActivity extends Activity {
     private Uri imageUri;
 
 
-    private static Handler handler = new Handler();
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case TEXT_RECOGNIZED:
+                    textView.setText(recognizedText);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +105,10 @@ public class MainActivity extends Activity {
                 if (resultCode == RESULT_OK) {
                     try {
                         bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-
-//                        picture.setImageBitmap(bitmap);
                         dialog.show();
-                        recogThread.start();
+                        bitmap = PicUtils.preProcess(bitmap);
+                        picture.setImageBitmap(bitmap);
+                        new RecogThread().start();
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -105,20 +120,14 @@ public class MainActivity extends Activity {
         }
     }
 
-    private Thread recogThread = new Thread(new Runnable() {
+    class RecogThread extends Thread {
         @Override
         public void run() {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    bitmap = PicUtils.preProcess(bitmap);
-                    picture.setImageBitmap(bitmap);
-                    recognizedText = OcrUtils.recognizePic(bitmap);
-                    textView.setText(recognizedText);
-                    dialog.dismiss();
-                }
-            });
+            recognizedText = OcrUtils.recognizePic(bitmap);
+            dialog.dismiss();
+            Message message = new Message();
+            message.what = TEXT_RECOGNIZED;
+            handler.sendMessage(message);
         }
-    });
-
+    }
 }
