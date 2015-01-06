@@ -1,6 +1,8 @@
 package com.oracle.sh.groupa.ocrdemo;
 
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+
 
 /**
  * Created by lliyu on 1/6/2015.
@@ -40,6 +42,18 @@ public class PicUtils {
             }
         }
         return binarymap;
+    }
+
+    public static Bitmap getScaleBitmap(Bitmap mBitmap) {
+
+        int width = mBitmap.getWidth();
+        int height = mBitmap.getHeight();
+        float rate = width*height > 500*500? (float)250000/width/height: (float) 1.0;
+
+        Matrix matrix = new Matrix();
+        matrix.preScale(rate, rate);
+
+        return Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, true);
     }
 
 }

@@ -90,8 +90,8 @@ public class MainActivity extends Activity {
                 if (resultCode == RESULT_OK) {
                     try {
                         bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        bitmap = PicUtils.gray2Binary(bitmap);
-                        picture.setImageBitmap(bitmap);
+
+//                        picture.setImageBitmap(bitmap);
                         dialog.show();
                         recogThread.start();
 
@@ -111,6 +111,9 @@ public class MainActivity extends Activity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    bitmap = PicUtils.getScaleBitmap(bitmap);
+                    bitmap = PicUtils.gray2Binary(bitmap);
+                    picture.setImageBitmap(bitmap);
                     recognizedText = OcrUtils.recognizePic(bitmap);
                     textView.setText(recognizedText);
                     dialog.dismiss();
