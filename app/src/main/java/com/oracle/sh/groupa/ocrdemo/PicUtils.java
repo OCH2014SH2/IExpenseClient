@@ -48,12 +48,17 @@ public class PicUtils {
 
         int width = mBitmap.getWidth();
         int height = mBitmap.getHeight();
-        float rate = width*height > 500*500? (float)250000/width/height: (float) 1.0;
+        float rate = width*height > 500*500? (float) Math.sqrt((double) 250000 / width / height) : (float) 1.0;
 
         Matrix matrix = new Matrix();
         matrix.preScale(rate, rate);
 
         return Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, true);
+    }
+    public static Bitmap preProcess(Bitmap bitmap){
+        bitmap = getScaleBitmap(bitmap);
+        bitmap = gray2Binary(bitmap);
+        return bitmap;
     }
 
 }

@@ -111,8 +111,7 @@ public class MainActivity extends Activity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    bitmap = PicUtils.getScaleBitmap(bitmap);
-                    bitmap = PicUtils.gray2Binary(bitmap);
+                    bitmap = PicUtils.preProcess(bitmap);
                     picture.setImageBitmap(bitmap);
                     recognizedText = OcrUtils.recognizePic(bitmap);
                     textView.setText(recognizedText);
