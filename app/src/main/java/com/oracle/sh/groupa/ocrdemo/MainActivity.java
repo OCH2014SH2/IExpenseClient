@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        OcrUtils.createFile(MainActivity.this);
         takePhotoButton = (Button) findViewById(R.id.take_photo);
         picture = (ImageView) findViewById(R.id.photo);
         textView = (TextView) findViewById(R.id.recognized_text);
