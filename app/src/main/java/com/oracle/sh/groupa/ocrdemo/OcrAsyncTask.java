@@ -27,7 +27,8 @@ public class OcrAsyncTask extends AsyncTask<RecogData,Void,Void> {
 
             Bitmap bitmap = recogData.getBitmap();
             bitmap = PicUtils.preProcess(bitmap);
-            recogData.setRecognizedText(OcrUtils.recognizePic(bitmap));
+            String str = OcrUtils.recognizePic(bitmap);
+            recogData.setRecognizedText(str);
         }
         return null;
     }

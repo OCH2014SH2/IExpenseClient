@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
     private Uri imageUri;
 
     private RecogData recogData;
+    private DataInfo dataInfo;
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -48,7 +49,12 @@ public class MainActivity extends Activity {
                     break;
                 case OcrAsyncTask.OCR_END:
                     recognizedText = recogData.getRecognizedText();
-                    textView.setText(recognizedText);
+                    OcrUtils.getDataFromRecogText(recogData,dataInfo);
+                    String str = DataInfo.FAPIAO_TITLE+": "+dataInfo.getName()+"\n"+
+                            DataInfo.FAPIAO_PRICE+": "+dataInfo.getPrice()+"\n"+
+                            DataInfo.FAPIAO_DATE+": "+dataInfo.getDate();
+
+                    textView.setText(str);
                     dialog.dismiss();
                     break;
                 default:
@@ -90,6 +96,7 @@ public class MainActivity extends Activity {
 
     private void initActivity() {
         recogData = new RecogData(this);
+        dataInfo = new DataInfo();
         takePhotoButton = (Button) findViewById(R.id.take_photo);
         picture = (ImageView) findViewById(R.id.photo);
         textView = (TextView) findViewById(R.id.recognized_text);

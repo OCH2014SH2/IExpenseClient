@@ -21,6 +21,8 @@ public class OcrUtils {
     private static final String DEFAULT_LANGUAGE = "eng";
     private static final String CHINESE_LANGUAGE = "chi_sim";
 
+
+
     private static String tessDataDirPath = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()// 得到外部存储卡的数据库的路径名
             + "/tessdata/";// 我要存储的目录
     private static String chiDataName = "chi_sim.traineddata";// 要存储的文件名
@@ -75,4 +77,34 @@ public class OcrUtils {
             return null;
         }
     }
+    public static void getDataFromRecogText(RecogData recogData,DataInfo dataInfo){
+        if(recogData == null || dataInfo == null)
+            return;
+
+        String[] items = {DataInfo.FAPIAO_DATE,DataInfo.FAPIAO_PRICE,DataInfo.FAPIAO_TITLE};
+        String recognizedText = recogData.getRecognizedText();
+        String[] lines = recognizedText.split("/n");
+        for(String line: lines){
+            for(String item:items){
+                if(line.contains(item)) {
+                    String temp = line.substring(line.indexOf(item)+item.length(),line.indexOf(item)+item.length()+3);
+                    switch (item){
+                        case DataInfo.FAPIAO_TITLE:
+                            dataInfo.setName(temp);
+                            break;
+                        case DataInfo.FAPIAO_PRICE:
+                            dataInfo.setPrice(temp);
+                            break;
+                        case DataInfo.FAPIAO_DATE:
+                            dataInfo.setDate(temp);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+    }
+
 }
