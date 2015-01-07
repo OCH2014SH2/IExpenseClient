@@ -29,9 +29,6 @@ public class MainActivity extends Activity {
     private static final int TAKE_PHOTO = 1;
     private static final int CROP_PHOTO = 2;
 
-    private static final int TEXT_RECOGNIZED = 3;
-
-
     private Button takePhotoButton;
     private ImageView picture;
     private ProgressDialog dialog;
@@ -41,12 +38,18 @@ public class MainActivity extends Activity {
     private Bitmap bitmap;
     private Uri imageUri;
 
+    private RecogData recogData;
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case TEXT_RECOGNIZED:
+                case OcrAsyncTask.OCR_START:
+                    dialog.show();
+                    break;
+                case OcrAsyncTask.OCR_END:
+                    recognizedText = recogData.getRecognizedText();
                     textView.setText(recognizedText);
+                    dialog.dismiss();
                     break;
                 default:
                     break;
@@ -59,15 +62,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        OcrUtils.createFile(MainActivity.this);
-        takePhotoButton = (Button) findViewById(R.id.take_photo);
-        picture = (ImageView) findViewById(R.id.photo);
-        textView = (TextView) findViewById(R.id.recognized_text);
 
-        dialog = new ProgressDialog(this);
-        dialog.setTitle("info");
-        dialog.setMessage("recognizing...");
-        dialog.setCancelable(false);
+        //check language package
+        OcrUtils.createFile(MainActivity.this);
+
+        initActivity();
 
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +88,17 @@ public class MainActivity extends Activity {
         });
     }
 
+    private void initActivity() {
+        recogData = new RecogData(this);
+        takePhotoButton = (Button) findViewById(R.id.take_photo);
+        picture = (ImageView) findViewById(R.id.photo);
+        textView = (TextView) findViewById(R.id.recognized_text);
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("info");
+        dialog.setMessage("recognizing...");
+        dialog.setCancelable(false);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -106,10 +116,11 @@ public class MainActivity extends Activity {
                 if (resultCode == RESULT_OK) {
                     try {
                         bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        dialog.show();
-                        bitmap = PicUtils.preProcess(bitmap);
+
+                        recogData.setBitmap(bitmap);
                         picture.setImageBitmap(bitmap);
-                        new RecogThread().start();
+
+                        new OcrAsyncTask(handler).execute(recogData);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -118,17 +129,6 @@ public class MainActivity extends Activity {
                 break;
             default:
                 break;
-        }
-    }
-
-    class RecogThread extends Thread {
-        @Override
-        public void run() {
-            recognizedText = OcrUtils.recognizePic(bitmap);
-            dialog.dismiss();
-            Message message = new Message();
-            message.what = TEXT_RECOGNIZED;
-            handler.sendMessage(message);
         }
     }
 }
