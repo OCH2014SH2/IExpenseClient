@@ -87,15 +87,19 @@ public class OcrUtils {
         for(String line: lines){
             for(String item:items){
                 if(line.contains(item)) {
-                    String temp = line.substring(line.indexOf(item)+item.length(),line.indexOf(item)+item.length()+3);
+                    String temp;
                     switch (item){
+
                         case DataInfo.FAPIAO_TITLE:
+                            temp = line.substring(line.indexOf(item)+item.length(),line.indexOf(item)+item.length()+3);
                             dataInfo.setName(temp);
                             break;
                         case DataInfo.FAPIAO_PRICE:
+                            temp = line.substring(line.indexOf(item)+item.length(),item.length()-1);
                             dataInfo.setPrice(temp);
                             break;
                         case DataInfo.FAPIAO_DATE:
+                            temp = line.substring(line.indexOf(item)+item.length(),item.length()-1);
                             dataInfo.setDate(temp);
                             break;
                         default:
