@@ -2,6 +2,7 @@ package com.oracle.sh.groupa.ocrdemo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -50,7 +51,6 @@ public class OcrUtils {
             // 目录存在，则将apk中raw中的需要的文档复制到该目录下
             File file = new File(filePath);
             if (!file.exists()) {// 文件不存在
-                Toast.makeText(context, "language data does not exists", Toast.LENGTH_SHORT).show();
                 InputStream ins = context.getResources().openRawResource(R.raw.chi_sim);// 通过raw得到数据资源
                 FileOutputStream fos = new FileOutputStream(file);
                 byte[] buffer = new byte[8192];
@@ -60,10 +60,19 @@ public class OcrUtils {
                 }
                 fos.close();
                 ins.close();
-                Toast.makeText(context, "language package import success!", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static class LangImportAsyncTask extends AsyncTask<Context,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Context... params) {
+
+            OcrUtils.createFile(params[0]);
+            return null;
         }
     }
 }

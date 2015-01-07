@@ -8,6 +8,7 @@ import android.os.Message;
 /**
  * Created by lliyu on 1/7/2015.
  */
+
 public class OcrAsyncTask extends AsyncTask<RecogData,Void,Void> {
 
     public static final int OCR_START = 3;

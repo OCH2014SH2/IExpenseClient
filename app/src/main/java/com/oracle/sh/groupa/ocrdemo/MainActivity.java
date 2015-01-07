@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //check language package
-        OcrUtils.createFile(MainActivity.this);
+        new OcrUtils.LangImportAsyncTask().execute(MainActivity.this);
 
         initActivity();
 
