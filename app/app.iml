@@ -83,18 +83,9 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="jaxb-impl" level="project" />
-    <orderEntry type="library" exported="" name="gmbal-api-only" level="project" />
-    <orderEntry type="library" exported="" name="stax-ex" level="project" />
-    <orderEntry type="library" exported="" name="jaxws-rt" level="project" />
-    <orderEntry type="library" exported="" name="jaxws-api" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.2" level="project" />
-    <orderEntry type="library" exported="" name="management-api" level="project" />
-    <orderEntry type="library" exported="" name="policy" level="project" />
-    <orderEntry type="library" exported="" name="streambuffer" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.2" level="project" />
-    <orderEntry type="library" exported="" name="jaxb-core" level="project" />
   </component>
 </module>
 

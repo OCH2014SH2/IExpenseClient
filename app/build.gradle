@@ -27,14 +27,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.2'
-    compile files('libs/javaw/gmbal-api-only.jar')
-    compile files('libs/javaw/jaxb-core.jar')
-    compile files('libs/javaw/jaxb-impl.jar')
-    compile files('libs/javaw/jaxws-api.jar')
-    compile files('libs/javaw/jaxws-rt.jar')
-    compile files('libs/javaw/management-api.jar')
-    compile files('libs/javaw/policy.jar')
-    compile files('libs/javaw/stax-ex.jar')
-    compile files('libs/javaw/streambuffer.jar')
 }
 
