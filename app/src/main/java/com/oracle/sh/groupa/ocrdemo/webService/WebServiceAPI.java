@@ -18,7 +18,7 @@ public class WebServiceAPI {
     public static String nameSpace = "http://webService/";
 
     // EndPoint  
-    public static String endPoint = "http://172.31.13.53:8080/Hackathon/hackService?wsdl";
+    public static String endPoint = "http://192.168.1.107:8080/Hackathon/hackService?wsdl";
 
     public WebServiceAPI() {
         gson = new Gson();
