@@ -95,11 +95,11 @@ public class OcrUtils {
                             dataInfo.setName(temp);
                             break;
                         case DataInfo.FAPIAO_PRICE:
-                            temp = line.substring(line.indexOf(item)+item.length(),item.length()-1);
+                            temp = line.substring(line.indexOf(item)+item.length(),line.indexOf(item)+item.length()+3);
                             dataInfo.setPrice(temp);
                             break;
                         case DataInfo.FAPIAO_DATE:
-                            temp = line.substring(line.indexOf(item)+item.length(),item.length()-1);
+                            temp = line.substring(line.indexOf(item)+item.length(),line.indexOf(item)+item.length()+3);
                             dataInfo.setDate(temp);
                             break;
                         default:
