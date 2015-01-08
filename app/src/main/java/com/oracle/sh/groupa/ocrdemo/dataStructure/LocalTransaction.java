@@ -1,5 +1,6 @@
 package com.oracle.sh.groupa.ocrdemo.dataStructure;
 
+import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
 import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Receipt;
 import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Transaction;
 
@@ -138,6 +139,7 @@ public class LocalTransaction {
 
         for (int i = 0; i < this.getLocalReceiptInfos().size(); i++) {
             localReceiptInfosArray[i] = this.getLocalReceiptInfos().get(i).toReceipt();
+            localReceiptInfosArray[i].setImgUrl(ExpenseManager.bytesStr2Image(localReceiptInfosArray[i].getImgUrl()));
         }
 
         transaction.setReceiptList(localReceiptInfosArray);
