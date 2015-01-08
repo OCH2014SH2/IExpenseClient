@@ -7,11 +7,23 @@ public class ReceiptInfo {
     private String title;
     private String dateTime;
     private double price;
+    private String picName;
 
-    public ReceiptInfo(String title, String dateTime, double price) {
+    public void setPicName(String picName) {
+        this.picName = picName;
+    }
+
+    public String getPicName() {
+
+        return picName;
+    }
+
+    public ReceiptInfo(String title, String dateTime, double price, String picName) {
         this.title = title;
+
         this.dateTime = dateTime;
         this.price = price;
+        this.picName = picName;
     }
 
     public String getTitle() {
