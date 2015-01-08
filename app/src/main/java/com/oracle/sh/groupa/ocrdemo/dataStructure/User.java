@@ -12,6 +12,7 @@ public class User {
     private String costCenter;
     private String bankAccount;
     private String email;
+    private String password;
 
     public User() {
 
@@ -99,6 +100,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    private String password;
 }

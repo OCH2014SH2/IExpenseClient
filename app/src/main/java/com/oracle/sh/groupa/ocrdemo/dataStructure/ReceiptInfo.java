@@ -15,7 +15,6 @@ public class ReceiptInfo {
 
     public ReceiptInfo(String title, String dateTime, double price, String picName) {
         this.title = title;
-
         this.dateTime = dateTime;
         this.price = price;
         this.picName = picName;

@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Created by Alfred on 15/1/8.
  */
 public class Transaction {
+    private int id;                                 //when the instance created, the id will be set
+                                                    //to 0. It will be modified when the server side
+                                                    //create a transaction record. It will be used
+                                                    //when query the whole information.
     private String dateTime;
     private ArrayList<ReceiptInfo> receiptInfos;
     private double totalPrice;
@@ -23,6 +27,7 @@ public class Transaction {
     public Transaction(String dateTime, double totalPrice,
                        User applicant, TransactionType type, String expiredDate,
                        TransactionStatus status, String justification, User approver) {
+        this.id = 0;
         this.dateTime = dateTime;
         this.receiptInfos = new ArrayList<>();
         this.totalPrice = totalPrice;
