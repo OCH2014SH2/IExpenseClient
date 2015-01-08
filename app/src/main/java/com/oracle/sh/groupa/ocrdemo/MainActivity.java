@@ -131,7 +131,7 @@ public class MainActivity extends Activity {
                 imageUri = Uri.fromFile(outputImage);
                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(intent, TAKE_PHOTO);*/
+                startActivityForResult(intent, TAKE_PHOTO);
             }
         });
     }

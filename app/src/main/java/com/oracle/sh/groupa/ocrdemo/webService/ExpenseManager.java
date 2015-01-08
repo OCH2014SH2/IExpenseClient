@@ -43,4 +43,15 @@ public class ExpenseManager {
         return transactionList.size();
 
     }
+
+    public static int querySpecificNeedApprovedTransact(String userId, int status) {
+        List<Transaction> transactionList = new ArrayList<Transaction>();
+        try {
+            transactionList = webServiceAPI.queryTransactionList(userId, status);
+        } catch (Exception e) {
+            return -1;
+        }
+
+        return transactionList.size();
+    }
 }

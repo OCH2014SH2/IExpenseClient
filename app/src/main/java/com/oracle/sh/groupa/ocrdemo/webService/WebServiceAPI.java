@@ -112,6 +112,29 @@ public class WebServiceAPI {
 
         return result;
 	}
+
+    public List<Transaction>queryNeedApprovedTransactionList(String userId, int status){
+        // ���õķ������
+        String methodName = "queryWaitApprovedTransactionList";
+
+        // SOAP Action
+        String soapAction = nameSpace + methodName;
+
+        // ָ��WebService������ռ�͵��õķ�����
+        SoapObject rpc = new SoapObject(nameSpace, methodName);
+
+        // ���������WebService�ӿ���Ҫ����Ĳ���
+        rpc.addProperty("arg0", userId);
+        rpc.addProperty("arg1", status);
+
+        // ��ȡ���ص����
+        SoapObject object = execute(rpc,soapAction);
+
+        // ��ȡ���صĽ��
+        List<Transaction> result = gson.fromJson(object.getProperty(0).toString(), new TypeToken<List<Transaction>>(){}.getType());
+
+        return result;
+    }
 	
 	
 	public int processTransaction(int transactionId, int status){
