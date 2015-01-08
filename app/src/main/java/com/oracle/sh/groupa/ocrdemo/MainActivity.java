@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oracle.sh.groupa.ocrdemo.dataStructure.ReceiptInfo;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -39,7 +41,7 @@ public class MainActivity extends Activity {
     private Uri imageUri;
 
     private RecogData recogData;
-    private DataInfo dataInfo;
+    private ReceiptInfo receiptInfo;
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -49,10 +51,10 @@ public class MainActivity extends Activity {
                     break;
                 case OcrAsyncTask.OCR_END:
                     recognizedText = recogData.getRecognizedText();
-                    OcrUtils.getDataFromRecogText(recogData,dataInfo);
-                    String str = DataInfo.FAPIAO_TITLE+": "+dataInfo.getName()+"\n"+
-                            DataInfo.FAPIAO_PRICE+": "+dataInfo.getPrice()+"\n"+
-                            DataInfo.FAPIAO_DATE+": "+dataInfo.getDate();
+                    receiptInfo = OcrUtils.getDataFromRecogText(recogData);
+                    String str = DataInfo.FAPIAO_TITLE+": "+receiptInfo.getTitle()+"\n"+
+                            DataInfo.FAPIAO_PRICE+": "+receiptInfo.getPrice()+"\n"+
+                            DataInfo.FAPIAO_DATE+": "+receiptInfo.getDateTime()+"\n";
 
                     textView.setText(str);
                     dialog.dismiss();
@@ -96,7 +98,6 @@ public class MainActivity extends Activity {
 
     private void initActivity() {
         recogData = new RecogData(this);
-        dataInfo = new DataInfo();
         takePhotoButton = (Button) findViewById(R.id.take_photo);
         picture = (ImageView) findViewById(R.id.photo);
         textView = (TextView) findViewById(R.id.recognized_text);

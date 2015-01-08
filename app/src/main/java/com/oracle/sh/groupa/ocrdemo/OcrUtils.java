@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
+import com.oracle.sh.groupa.ocrdemo.dataStructure.ReceiptInfo;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -77,10 +77,10 @@ public class OcrUtils {
             return null;
         }
     }
-    public static void getDataFromRecogText(RecogData recogData,DataInfo dataInfo){
-        if(recogData == null || dataInfo == null)
-            return;
-
+    public static ReceiptInfo getDataFromRecogText(RecogData recogData){
+        if(recogData == null)
+            return null;
+        DataInfo dataInfo = new DataInfo();
         String[] items = {DataInfo.FAPIAO_DATE,DataInfo.FAPIAO_PRICE,DataInfo.FAPIAO_TITLE};
         String recognizedText = recogData.getRecognizedText();
         String[] lines = recognizedText.split("/n");
@@ -95,11 +95,11 @@ public class OcrUtils {
                             dataInfo.setName(temp);
                             break;
                         case DataInfo.FAPIAO_PRICE:
-                            temp = line.substring(line.indexOf(item)+item.length(),line.indexOf(item)+item.length()+3);
+                            temp = line.substring(line.indexOf(item)+item.length(),line.length()-1);
                             dataInfo.setPrice(temp);
                             break;
                         case DataInfo.FAPIAO_DATE:
-                            temp = line.substring(line.indexOf(item)+item.length(),line.indexOf(item)+item.length()+3);
+                            temp = line.substring(line.indexOf(item)+item.length(),line.length()-1);
                             dataInfo.setDate(temp);
                             break;
                         default:
@@ -108,6 +108,8 @@ public class OcrUtils {
                 }
             }
         }
+        double price  = Double.parseDouble(dataInfo.getPrice());
+        return new ReceiptInfo(dataInfo.getName(),dataInfo.getDate(),price,null);
 
     }
 
