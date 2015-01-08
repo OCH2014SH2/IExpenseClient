@@ -1,6 +1,5 @@
 package com.oracle.sh.groupa.ocrdemo;
 
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -85,7 +84,10 @@ public class MainActivity extends Activity {
                     }
                 }).start();*/
 
-                File outputImage = new File(Environment.getExternalStorageDirectory(), "tempImage.jpg");
+                String photoFile = String.valueOf(System.currentTimeMillis())+".jpg";
+                File dir = Environment.getExternalStorageDirectory();
+
+                File outputImage = new File(dir,photoFile);
                 try {
                     if (outputImage.exists()) {
                         outputImage.delete();
