@@ -85,7 +85,7 @@ public class OcrUtils {
         DataInfo dataInfo = new DataInfo();
         String[] items = {DataInfo.FAPIAO_DATE, DataInfo.FAPIAO_PRICE, DataInfo.FAPIAO_TITLE};
         String recognizedText = recogData.getRecognizedText();
-        String[] lines = recognizedText.split("/n");
+        String[] lines = recognizedText.split("\n");
         for (String line : lines) {
             for (String item : items) {
                 if (line.contains(item)) {
@@ -99,7 +99,7 @@ public class OcrUtils {
                         case DataInfo.FAPIAO_PRICE:
                             index = line.indexOf(item);
                             temp = "";
-                            while (index >= 0) {
+                            while (index > 0) {
                                 char ch = line.charAt(--index);
                                 if ((ch <= '9' && ch >= '0') || (ch == '.' || ch == ','))
                                     temp += ch;
@@ -115,7 +115,7 @@ public class OcrUtils {
                             temp = "";
                             while (index < line.length()) {
                                 char ch = line.charAt(index++);
-                                if ((ch <= '9' && ch >= '0') || (ch == '.' || ch == ','||ch=='-'))
+                                if ((ch <= '9' && ch >= '0') || (ch == '.' || ch == ','||ch=='-' || ch == ' '))
                                     temp += ch;
                                 else
                                     break;
