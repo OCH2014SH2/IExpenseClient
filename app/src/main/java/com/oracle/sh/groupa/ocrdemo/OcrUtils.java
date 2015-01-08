@@ -22,7 +22,7 @@ public class OcrUtils {
     private static final String DEFAULT_LANGUAGE = "eng";
     private static final String CHINESE_LANGUAGE = "chi_sim";
 
-    public static final String PHOTO_DIR = Environment.getExternalStorageDirectory().toString()+"/";
+    public static final String PHOTO_DIR = Environment.getExternalStorageDirectory().toString() + "/";
 
     private static String tessDataDirPath = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()// 得到外部存储卡的数据库的路径名
             + "/tessdata/";// 我要存储的目录
@@ -69,7 +69,7 @@ public class OcrUtils {
         }
     }
 
-    public static class LangImportAsyncTask extends AsyncTask<Context,Void,Void>{
+    public static class LangImportAsyncTask extends AsyncTask<Context, Void, Void> {
 
         @Override
         protected Void doInBackground(Context... params) {
@@ -78,29 +78,30 @@ public class OcrUtils {
             return null;
         }
     }
-    public static LocalReceiptInfo getDataFromRecogText(RecogData recogData){
-        if(recogData == null)
+
+    public static LocalReceiptInfo getDataFromRecogText(RecogData recogData) {
+        if (recogData == null)
             return null;
         DataInfo dataInfo = new DataInfo();
-        String[] items = {DataInfo.FAPIAO_DATE,DataInfo.FAPIAO_PRICE,DataInfo.FAPIAO_TITLE};
+        String[] items = {DataInfo.FAPIAO_DATE, DataInfo.FAPIAO_PRICE, DataInfo.FAPIAO_TITLE};
         String recognizedText = recogData.getRecognizedText();
         String[] lines = recognizedText.split("/n");
-        for(String line: lines){
-            for(String item:items){
-                if(line.contains(item)) {
+        for (String line : lines) {
+            for (String item : items) {
+                if (line.contains(item)) {
                     String temp;
-                    switch (item){
+                    switch (item) {
 
                         case DataInfo.FAPIAO_TITLE:
-                            temp = line.substring(line.indexOf(item)+item.length(),item.length()-1);
+                            temp = line.substring(line.indexOf(item) + item.length(), line.length() - 1);
                             dataInfo.setName(temp);
                             break;
                         case DataInfo.FAPIAO_PRICE:
-                            temp = line.substring(line.indexOf(item)+item.length(),line.length()-1);
+                            temp = line.substring(line.indexOf(item) + item.length(), line.length() - 1);
                             dataInfo.setPrice(temp);
                             break;
                         case DataInfo.FAPIAO_DATE:
-                            temp = line.substring(line.indexOf(item)+item.length(),line.length()-1);
+                            temp = line.substring(line.indexOf(item) + item.length(), line.length() - 1);
                             dataInfo.setDate(temp);
                             break;
                         default:
@@ -110,8 +111,8 @@ public class OcrUtils {
             }
         }
         //double price  = Double.parseDouble(dataInfo.getPrice());
-        String picAbsolutePath = PHOTO_DIR+recogData.getPicFileName();
-        return new LocalReceiptInfo(dataInfo.getName(),dataInfo.getDate(),0.0,picAbsolutePath);
+        String picAbsolutePath = PHOTO_DIR + recogData.getPicFileName();
+        return new LocalReceiptInfo(dataInfo.getName(), dataInfo.getDate(), 0.0, picAbsolutePath);
 
     }
 

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.oracle.sh.groupa.ocrdemo.ReimburseActivity;
 import com.oracle.sh.groupa.ocrdemo.R;
 import com.oracle.sh.groupa.ocrdemo.service.PeriodConnectServerService;
 
@@ -30,7 +29,7 @@ public class LoginActivity extends Activity {
         startService(intent);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.layout_login );
+        setContentView(R.layout.layout_login);
 
         accountText = (EditText) findViewById(R.id.Username);
         passwordText = (EditText) findViewById(R.id.Password);
@@ -41,15 +40,14 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 String account = accountText.getText().toString();
                 String password = passwordText.getText().toString();
-                if(account.equals("22641") && password.equals("admin")){
-                    Toast.makeText(LoginActivity.this,"login success",Toast.LENGTH_SHORT).show();
+                if (account.equals("22641") && password.equals("admin")) {
+                    Toast.makeText(LoginActivity.this, "login success", Toast.LENGTH_SHORT).show();
                     //TODO
-                    Intent intent = new Intent(LoginActivity.this, ReimburseActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MyTabActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                else{
-                    Toast.makeText(LoginActivity.this,"account or password is invalid",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "account or password is invalid", Toast.LENGTH_SHORT).show();
 
                 }
             }

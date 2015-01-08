@@ -9,7 +9,7 @@ import android.os.Message;
  * Created by lliyu on 1/7/2015.
  */
 
-public class OcrAsyncTask extends AsyncTask<RecogData,Void,Void> {
+public class OcrAsyncTask extends AsyncTask<RecogData, Void, Void> {
 
     public static final int OCR_START = 3;
     public static final int OCR_END = 4;
@@ -23,7 +23,7 @@ public class OcrAsyncTask extends AsyncTask<RecogData,Void,Void> {
     @Override
     protected Void doInBackground(RecogData... params) {
         RecogData recogData = params[0];
-        if(recogData != null) {
+        if (recogData != null) {
 
             Bitmap bitmap = recogData.getBitmap();
             bitmap = PicUtils.preProcess(bitmap);

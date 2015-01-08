@@ -84,11 +84,11 @@ public class WriteFile {
      * Writes all the images in a Pixa array to individual files using the
      * specified format. The output file extension will be determined by the
      * format.
-     * <p>
+     * <p/>
      * Output file names will take the format <path>/<prefix><index>.<extension>
      *
-     * @param pixas The source Pixa image array.
-     * @param path The output directory.
+     * @param pixas  The source Pixa image array.
+     * @param path   The output directory.
      * @param prefix The prefix to give output files.
      * @param format The format to use for output files.
      * @return <code>true</code> on success
@@ -110,7 +110,7 @@ public class WriteFile {
      * Write a Pix to a byte array using the specified encoding from
      * Constants.IFF_*.
      *
-     * @param pixs The source image.
+     * @param pixs   The source image.
      * @param format A format from Constants.IFF_*.
      * @return a byte array containing encoded bytes
      */
@@ -124,7 +124,7 @@ public class WriteFile {
     /**
      * Writes a Pix to file using the file extension as the output format;
      * supported formats are .jpg or .jpeg for JPEG and .bmp for bitmap.
-     * <p>
+     * <p/>
      * Uses default quality and progressive encoding settings.
      *
      * @param pixs Source image.
@@ -138,7 +138,7 @@ public class WriteFile {
     /**
      * Writes a Pix to file using the file extension as the output format;
      * supported formats are .jpg or .jpeg for JPEG and .bmp for bitmap.
-     * <p>
+     * <p/>
      * Notes:
      * <ol>
      * <li>This determines the output format from the filename extension.
@@ -146,10 +146,10 @@ public class WriteFile {
      * <li>The jpeg default quality is 75.
      * </ol>
      *
-     * @param pixs Source image.
-     * @param file The file to write.
-     * @param quality (Only for lossy formats) Quality between 1 - 100, 0 for
-     *            default.
+     * @param pixs        Source image.
+     * @param file        The file to write.
+     * @param quality     (Only for lossy formats) Quality between 1 - 100, 0 for
+     *                    default.
      * @param progressive (Only for JPEG) Whether to encode as progressive.
      * @return <code>true</code> on success
      */
@@ -170,7 +170,7 @@ public class WriteFile {
      *
      * @param pixs The source image.
      * @return a Bitmap containing a copy of the source image, or <code>null
-     *         </code> on failure
+     * </code> on failure
      */
     public static Bitmap writeBitmap(Pix pixs) {
         if (pixs == null)

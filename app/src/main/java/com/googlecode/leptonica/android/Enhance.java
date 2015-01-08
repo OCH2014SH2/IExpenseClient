@@ -28,7 +28,7 @@ public class Enhance {
 
     /**
      * Performs unsharp masking (edge enhancement).
-     * <p>
+     * <p/>
      * Notes:
      * <ul>
      * <li>We use symmetric smoothing filters of odd dimension, typically use
@@ -39,8 +39,8 @@ public class Enhance {
      * </ul>
      *
      * @param halfwidth The half-width of the smoothing filter.
-     * @param fraction The fraction of edge to be added back into the source
-     *            image.
+     * @param fraction  The fraction of edge to be added back into the source
+     *                  image.
      * @return an edge-enhanced Pix image or copy if no enhancement requested
      */
     public static Pix unsharpMasking(Pix pixs, int halfwidth, float fraction) {

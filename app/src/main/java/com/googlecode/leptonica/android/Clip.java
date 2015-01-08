@@ -25,24 +25,24 @@ public class Clip {
 
     /**
      * Extract a region from a Pix.
-     * <p>
+     * <p/>
      * Notes:
-     * <p>
+     * <p/>
      * This should be simple, but there are choices to be made. The box is
      * defined relative to the pix coordinates.  However, if the box is not
      * contained within the pix, we have two choices:
-     * <p>
+     * <p/>
      * <p>     (1) clip the box to the pix
      * <p>     (2) make a new pix equal to the full box dimensions,
-     *             but let rasterop do the clipping and positioning
-     *             of the src with respect to the dest
-     * <p>
+     * but let rasterop do the clipping and positioning
+     * of the src with respect to the dest
+     * <p/>
      * Choice (2) immediately brings up the problem of what pixel values
      * to use that were not taken from the src.  For example, on a grayscale
      * image, do you want the pixels not taken from the src to be black
      * or white or something else?  To implement choice 2, one needs to
      * specify the color of these extra pixels.
-     * <p>
+     * <p/>
      * So we adopt (1), and clip the box first, if necessary,
      * before making the dest pix and doing the rasterop.  But there
      * is another issue to consider.  If you want to paste the
@@ -50,7 +50,7 @@ public class Clip {
      * it is necessary to use the clipped box for alignment.
      *
      * @param source Source pix
-     * @param box Requested clipping region
+     * @param box    Requested clipping region
      * @return clipped pix, or null if rectangle doesn't intersect source pix
      */
     public static Pix clipRectangle(Pix source, Box box) {

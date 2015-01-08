@@ -18,14 +18,14 @@ package com.googlecode.leptonica.android;
 
 /**
  * Image bit-depth conversion methods.
- * 
+ *
  * @author alanv@google.com (Alan Viverette)
  */
 public class Convert {
     static {
         System.loadLibrary("lept");
     }
-    
+
     /**
      * Converts an image of any bit depth to 8-bit grayscale.
      *

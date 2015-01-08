@@ -1,4 +1,4 @@
-package com.oracle.sh.groupa.ocrdemo;
+package com.oracle.sh.groupa.ocrdemo.activities;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -17,16 +17,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.oracle.sh.groupa.ocrdemo.OcrAsyncTask;
+import com.oracle.sh.groupa.ocrdemo.OcrUtils;
+import com.oracle.sh.groupa.ocrdemo.R;
+import com.oracle.sh.groupa.ocrdemo.RecogData;
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
 
 import java.io.File;
 import java.io.IOException;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 /**
  * Created by lliyu on 12/26/2014.
@@ -82,16 +80,21 @@ public class ReimburseActivity extends Activity {
         manager.cancel(1);
 
         initActivity();
-        imageView=(ImageView)findViewById(R.id.imageView);
-        et01=(EditText)findViewById(R.id.editText01);
-        et02=(EditText)findViewById(R.id.editText02);
-        et03=(EditText)findViewById(R.id.editText03);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        et01 = (EditText) findViewById(R.id.editText01);
+        et02 = (EditText) findViewById(R.id.editText02);
+        et03 = (EditText) findViewById(R.id.editText03);
         button = (Button) findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ReimburseActivity.this,ShowrecipeActivity.class);
+                if(imageView==null || et01 == null || et02 ==null || et03 == null ||
+                        et01.getText().toString()=="" ||
+                        et02.getText().toString()=="" ||
+                        et03.getText().toString()=="" )
+                    return;
+                Intent intent = new Intent(ReimburseActivity.this, ShowrecipeActivity.class);
                 intent.putExtra("data", localReceiptInfo);
                 startActivity(intent);
             }
@@ -99,7 +102,7 @@ public class ReimburseActivity extends Activity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                photoFileName = String.valueOf(System.currentTimeMillis())+".jpg";
+                photoFileName = String.valueOf(System.currentTimeMillis()) + ".jpg";
                 //File dir = Environment.getExternalStorageDirectory();
 
                 File outputImage = new File(OcrUtils.PHOTO_DIR, photoFileName);
@@ -164,30 +167,5 @@ public class ReimburseActivity extends Activity {
             default:
                 break;
         }
-
-}
-    private Button button;
-    private ImageView imageView;
-    private EditText et01;
-    private EditText et02;
-    private EditText et03;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.reimburse);
-        imageView=(ImageView)findViewById(R.id.imageView);
-        et01=(EditText)findViewById(R.id.editText01);
-        et02=(EditText)findViewById(R.id.editText02);
-        et03=(EditText)findViewById(R.id.editText03);
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent();
-                intent.setClass(ReimburseActivity.this,ShowrecipeActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 }

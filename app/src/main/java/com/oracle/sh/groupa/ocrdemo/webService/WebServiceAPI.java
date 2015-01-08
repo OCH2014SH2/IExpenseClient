@@ -14,7 +14,7 @@ import java.util.List;
 
 public class WebServiceAPI {
     public static Gson gson;
-	// ����ռ�  
+    // ����ռ�
     public static String nameSpace = "http://webService/";
 
     // EndPoint  
@@ -23,97 +23,99 @@ public class WebServiceAPI {
     public WebServiceAPI() {
         gson = new Gson();
     }
-    
-    public SoapObject execute (SoapObject rpc,String soapAction){
-    	// ��ɵ���WebService������SOAP������Ϣ,��ָ��SOAP�İ汾
+
+    public SoapObject execute(SoapObject rpc, String soapAction) {
+        // ��ɵ���WebService������SOAP������Ϣ,��ָ��SOAP�İ汾
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-  
-        envelope.bodyOut = rpc;  
+
+        envelope.bodyOut = rpc;
         // �����Ƿ���õ���dotNet������WebService  
         envelope.dotNet = false;
         // �ȼ���envelope.bodyOut = rpc;  
-        envelope.setOutputSoapObject(rpc);  
-  
+        envelope.setOutputSoapObject(rpc);
+
         HttpTransportSE transport = new HttpTransportSE(endPoint);
-        try {  
+        try {
             // ����WebService  
-            transport.call(soapAction, envelope);  
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        }  
-  
+            transport.call(soapAction, envelope);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // ��ȡ���ص����  
-        SoapObject object = (SoapObject) envelope.bodyIn;  
+        SoapObject object = (SoapObject) envelope.bodyIn;
         // ��ȡ���صĽ��  
         return object;
     }
-	public int addTransaction(Transaction trans){
+
+    public int addTransaction(Transaction trans) {
         // ���õķ������  
-        String methodName = "addTransaction";  
-        
+        String methodName = "addTransaction";
+
         // SOAP Action  
-        String soapAction = nameSpace + methodName; 
-  
+        String soapAction = nameSpace + methodName;
+
         // ָ��WebService������ռ�͵��õķ�����  
-        SoapObject rpc = new SoapObject(nameSpace, methodName);  
-  
+        SoapObject rpc = new SoapObject(nameSpace, methodName);
+
         // ���������WebService�ӿ���Ҫ����Ĳ���
         ;
         rpc.addProperty("arg0", gson.toJson(trans, Transaction.class));
-  
+
         // ��ȡ���ص����  
-        SoapObject object = execute(rpc,soapAction);  
+        SoapObject object = execute(rpc, soapAction);
         // ��ȡ���صĽ��  
-        String result = object.getProperty(0).toString(); 
+        String result = object.getProperty(0).toString();
         return Integer.valueOf(result);
-	}
-	
-	public Transaction queryTransactionDetail(int transactionId){
+    }
+
+    public Transaction queryTransactionDetail(int transactionId) {
         // ���õķ������  
-        String methodName = "queryTransactionDetail";  
-        
+        String methodName = "queryTransactionDetail";
+
         // SOAP Action  
-        String soapAction = nameSpace + methodName; 
-  
+        String soapAction = nameSpace + methodName;
+
         // ָ��WebService������ռ�͵��õķ�����  
-        SoapObject rpc = new SoapObject(nameSpace, methodName);  
-  
+        SoapObject rpc = new SoapObject(nameSpace, methodName);
+
         // ���������WebService�ӿ���Ҫ����Ĳ���  
         rpc.addProperty("arg0", transactionId);
-  
+
         // ��ȡ���ص����  
-        SoapObject object = execute(rpc,soapAction);   
-        
+        SoapObject object = execute(rpc, soapAction);
+
         // ��ȡ���صĽ��  
-        Transaction result =gson.fromJson(object.getProperty(0).toString(), Transaction.class);
+        Transaction result = gson.fromJson(object.getProperty(0).toString(), Transaction.class);
 
         return result;
-	}
-	
-	public List<Transaction> queryTransactionList(String userId, int status){
+    }
+
+    public List<Transaction> queryTransactionList(String userId, int status) {
         // ���õķ������  
-        String methodName = "queryTransactionList";  
-        
+        String methodName = "queryTransactionList";
+
         // SOAP Action  
-        String soapAction = nameSpace + methodName; 
-  
+        String soapAction = nameSpace + methodName;
+
         // ָ��WebService������ռ�͵��õķ�����  
-        SoapObject rpc = new SoapObject(nameSpace, methodName);  
-  
+        SoapObject rpc = new SoapObject(nameSpace, methodName);
+
         // ���������WebService�ӿ���Ҫ����Ĳ���  
         rpc.addProperty("arg0", userId);
         rpc.addProperty("arg1", status);
-  
+
         // ��ȡ���ص����  
-        SoapObject object = execute(rpc,soapAction);  
-        
+        SoapObject object = execute(rpc, soapAction);
+
         // ��ȡ���صĽ��  
-        List<Transaction> result = gson.fromJson(object.getProperty(0).toString(), new TypeToken<List<Transaction>>(){}.getType());
+        List<Transaction> result = gson.fromJson(object.getProperty(0).toString(), new TypeToken<List<Transaction>>() {
+        }.getType());
 
         return result;
-	}
+    }
 
-    public List<Transaction> queryWaitApprovedTransactionList(String userId, int status){
+    public List<Transaction> queryWaitApprovedTransactionList(String userId, int status) {
         // ���õķ������
         String methodName = "queryWaitApprovedTransactionList";
 
@@ -128,80 +130,80 @@ public class WebServiceAPI {
         rpc.addProperty("arg1", -1);
 
         // ��ȡ���ص����
-        SoapObject object = execute(rpc,soapAction);
+        SoapObject object = execute(rpc, soapAction);
 
         // ��ȡ���صĽ��
-        List<Transaction> result = gson.fromJson(object.getProperty(0).toString(), new TypeToken<List<Transaction>>(){}.getType());
+        List<Transaction> result = gson.fromJson(object.getProperty(0).toString(), new TypeToken<List<Transaction>>() {
+        }.getType());
 
         return result;
     }
-	
-	
-	public int processTransaction(int transactionId, int status){
+
+
+    public int processTransaction(int transactionId, int status) {
         // ���õķ������  
-        String methodName = "processTransaction";  
-        
+        String methodName = "processTransaction";
+
         // SOAP Action  
-        String soapAction = nameSpace + methodName; 
-  
+        String soapAction = nameSpace + methodName;
+
         // ָ��WebService������ռ�͵��õķ�����  
-        SoapObject rpc = new SoapObject(nameSpace, methodName);  
-  
+        SoapObject rpc = new SoapObject(nameSpace, methodName);
+
         // ���������WebService�ӿ���Ҫ����Ĳ���  
         rpc.addProperty("arg0", transactionId);
         rpc.addProperty("arg1", status);
-  
+
         // ��ȡ���ص����  
-        SoapObject object = execute(rpc,soapAction);  
-        
+        SoapObject object = execute(rpc, soapAction);
+
         // ��ȡ���صĽ��  
-        String result = object.getProperty(0).toString(); 
+        String result = object.getProperty(0).toString();
         return Integer.valueOf(result);
-	}
-	
-	
-	
-	public int updateUser(User user){
+    }
+
+
+    public int updateUser(User user) {
         // ���õķ������  
-        String methodName = "updateUser";  
-        
+        String methodName = "updateUser";
+
         // SOAP Action  
         //String soapAction = nameSpace + methodName;
         String soapAction = null;
         // ָ��WebService������ռ�͵��õķ�����  
-        SoapObject rpc = new SoapObject(nameSpace, methodName);  
-  
+        SoapObject rpc = new SoapObject(nameSpace, methodName);
+
         // ���������WebService�ӿ���Ҫ����Ĳ���  
         rpc.addProperty("arg0", gson.toJson(user, User.class));
-  
-        // ��ȡ���ص����  
-        SoapObject object = execute(rpc,soapAction);  
-       
-        // ��ȡ���صĽ��  
-       String result = object.getProperty(0).toString(); 
-       return Integer.valueOf(result);
-	}
 
-	
-	public User queryUser(String empId){
+        // ��ȡ���ص����  
+        SoapObject object = execute(rpc, soapAction);
+
+        // ��ȡ���صĽ��  
+        String result = object.getProperty(0).toString();
+        return Integer.valueOf(result);
+    }
+
+
+    public User queryUser(String empId) {
         // ���õķ������  
-        String methodName = "queryUser";  
-        
+        String methodName = "queryUser";
+
         // SOAP Action  
-        String soapAction = nameSpace + methodName; 
-  
+        String soapAction = nameSpace + methodName;
+
         // ָ��WebService������ռ�͵��õķ�����  
-        SoapObject rpc = new SoapObject(nameSpace, methodName);  
-  
+        SoapObject rpc = new SoapObject(nameSpace, methodName);
+
         // ���������WebService�ӿ���Ҫ����Ĳ���  
         rpc.addProperty("arg0", empId);
-  
+
         // ��ȡ���ص����  
-       SoapObject object = execute(rpc,soapAction);  
+        SoapObject object = execute(rpc, soapAction);
         // ��ȡ���صĽ��  
 
         Gson gson = new Gson();
-       User result = gson.fromJson(object.getProperty(0).toString(), User.class);
-       return result;
-	}
+        User result = gson.fromJson(object.getProperty(0).toString(), User.class);
+        return result;
+    }
 }

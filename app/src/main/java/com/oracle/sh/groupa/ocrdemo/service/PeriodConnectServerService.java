@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 
 import com.oracle.sh.groupa.ocrdemo.ContextApplication;
-import com.oracle.sh.groupa.ocrdemo.ReimburseActivity;
+import com.oracle.sh.groupa.ocrdemo.activities.ReimburseActivity;
 import com.oracle.sh.groupa.ocrdemo.R;
 import com.oracle.sh.groupa.ocrdemo.receiver.AlarmReceiver;
 import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
@@ -18,7 +18,7 @@ import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
 /**
  * Created by lliyu on 1/8/2015.
  */
-public class PeriodConnectServerService extends Service{
+public class PeriodConnectServerService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -31,23 +31,23 @@ public class PeriodConnectServerService extends Service{
             public void run() {
                 int messageCountNeedToApprove = ExpenseManager.querySpecificNeedApprovedTransact("22641", 0);
 
-                if(messageCountNeedToApprove>0){
+                if (messageCountNeedToApprove > 0) {
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-                    Notification notification = new Notification(R.drawable.iexpense,"a iexpense message",System.currentTimeMillis());
-                    Intent notificationIntent = new Intent(ContextApplication.getContext(),ReimburseActivity.class);
-                    PendingIntent pi = PendingIntent.getActivity(ContextApplication.getContext(),0,notificationIntent,PendingIntent.FLAG_CANCEL_CURRENT);
-                    notification.setLatestEventInfo(ContextApplication.getContext(),"IExpense",messageCountNeedToApprove+"request need to be handle",pi);
-                    manager.notify(1,notification);
+                    Notification notification = new Notification(R.drawable.iexpense, "a iexpense message", System.currentTimeMillis());
+                    Intent notificationIntent = new Intent(ContextApplication.getContext(), ReimburseActivity.class);
+                    PendingIntent pi = PendingIntent.getActivity(ContextApplication.getContext(), 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                    notification.setLatestEventInfo(ContextApplication.getContext(), "IExpense", messageCountNeedToApprove + "request need to be handle", pi);
+                    manager.notify(1, notification);
                 }
             }
         }).start();
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int period = 60*1000;
-        long triggerAtTime = SystemClock.elapsedRealtime()+period;
-        Intent i = new Intent(this,AlarmReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(this,0,i,0);
-        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerAtTime,pi);
-        return super.onStartCommand(intent,flags,startId);
+        int period = 60 * 1000;
+        long triggerAtTime = SystemClock.elapsedRealtime() + period;
+        Intent i = new Intent(this, AlarmReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
+        return super.onStartCommand(intent, flags, startId);
     }
 }
