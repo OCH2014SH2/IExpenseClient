@@ -1,5 +1,11 @@
 package com.oracle.sh.groupa.ocrdemo.webService.dataStructure;
 
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalTransaction;
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalUser;
+
+import java.util.ArrayList;
+
 public class Transaction implements java.io.Serializable {
 
     private int id;
@@ -79,5 +85,59 @@ public class Transaction implements java.io.Serializable {
     }
     public void setReceiptList(Receipt[] receiptList) {
         this.receiptList = receiptList;
+    }
+
+    public LocalTransaction toLocalTransation() {
+        LocalTransaction localTransaction = new LocalTransaction();
+        localTransaction.setDateTime(this.getDate());
+        LocalUser user = new LocalUser();
+        user.setName(this.getApplicant());
+        localTransaction.setApplicant(user);
+        localTransaction.setDateTime(this.getDate());
+        switch (this.getStatus()) {
+            case 0:
+                localTransaction.setStatus(LocalTransaction.TransactionStatus.Pending);
+                break;
+            case 1:
+                localTransaction.setStatus(LocalTransaction.TransactionStatus.Approved);
+                break;
+            case 2:
+                localTransaction.setStatus(LocalTransaction.TransactionStatus.Denied);
+                break;
+        }
+        LocalUser user2 = new LocalUser();
+        user2.setName(this.getApprover());
+        localTransaction.setApprover(user2);
+        localTransaction.setTotalPrice(this.getTotalAmount());
+        ArrayList<LocalReceiptInfo> receiptInfo = new ArrayList<LocalReceiptInfo>();
+        for (Receipt receipt : this.getReceiptList()) {
+            receiptInfo.add(receipt.toLocalReceiptInfo());
+        }
+        localTransaction.setLocalReceiptInfos(receiptInfo);
+        localTransaction.setJustification(this.getJustification());
+        localTransaction.setExpiredDate(this.getExpireDate());
+        switch (this.getType()) {
+            case "Accommodation":
+                localTransaction.setType(LocalTransaction.TransactionType.Accommodation);
+                break;
+            case "ClubCost":
+                localTransaction.setType(LocalTransaction.TransactionType.ClubCost);
+                break;
+            case "Meals":
+                localTransaction.setType(LocalTransaction.TransactionType.Meals);
+                break;
+            case "Social":
+                localTransaction.setType(LocalTransaction.TransactionType.Social);
+                break;
+            case "Taxi":
+                localTransaction.setType(LocalTransaction.TransactionType.Taxi);
+                break;
+            case "Training":
+                localTransaction.setType(LocalTransaction.TransactionType.Training);
+                break;
+        }
+
+        return localTransaction;
+
     }
 }

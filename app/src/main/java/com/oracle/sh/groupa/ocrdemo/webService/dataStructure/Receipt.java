@@ -1,5 +1,7 @@
 package com.oracle.sh.groupa.ocrdemo.webService.dataStructure;
 
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
+
 public class Receipt implements java.io.Serializable {
 
     private int id;
@@ -45,5 +47,13 @@ public class Receipt implements java.io.Serializable {
         this.imgUrl = imgUrl;
     }
 
+    public LocalReceiptInfo toLocalReceiptInfo() {
+        LocalReceiptInfo localReceiptInfo = new LocalReceiptInfo();
+        localReceiptInfo.setDateTime(this.getDate());
+        localReceiptInfo.setPicName(this.getImgUrl());
+        localReceiptInfo.setTitle(this.getTitle());
+        localReceiptInfo.setPrice(this.getAmount());
 
+        return localReceiptInfo;
+    }
 }

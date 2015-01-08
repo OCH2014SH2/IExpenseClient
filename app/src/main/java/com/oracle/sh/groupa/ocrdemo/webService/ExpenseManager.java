@@ -27,9 +27,15 @@ public class ExpenseManager {
         return true;
     }
 
-    public static List<Transaction> queryAllTransactStatus(String userId) {
+    public static List<LocalTransaction> queryAllTransactStatus(String userId) {
         List<Transaction> transactionList = webServiceAPI.queryTransactionList(userId, -1);
-        return transactionList;
+
+        List<LocalTransaction> localTransactionsList = new ArrayList<LocalTransaction>();
+
+        for (Transaction transaction : transactionList) {
+            localTransactionsList.add(transaction.toLocalTransation());
+        }
+        return localTransactionsList;
     }
 
     public static int querySpecificTransactStatus(String userId, int status) {

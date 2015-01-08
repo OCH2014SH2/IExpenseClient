@@ -113,7 +113,7 @@ public class WebServiceAPI {
         return result;
 	}
 
-    public List<Transaction>queryNeedApprovedTransactionList(String userId, int status){
+    public List<Transaction> queryWaitApprovedTransactionList(String userId, int status){
         // ���õķ������
         String methodName = "queryWaitApprovedTransactionList";
 
@@ -125,7 +125,7 @@ public class WebServiceAPI {
 
         // ���������WebService�ӿ���Ҫ����Ĳ���
         rpc.addProperty("arg0", userId);
-        rpc.addProperty("arg1", status);
+        rpc.addProperty("arg1", -1);
 
         // ��ȡ���ص����
         SoapObject object = execute(rpc,soapAction);
