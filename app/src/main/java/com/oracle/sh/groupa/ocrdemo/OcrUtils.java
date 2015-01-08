@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
-import com.oracle.sh.groupa.ocrdemo.dataStructure.ReceiptInfo;
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -77,7 +77,7 @@ public class OcrUtils {
             return null;
         }
     }
-    public static ReceiptInfo getDataFromRecogText(RecogData recogData){
+    public static LocalReceiptInfo getDataFromRecogText(RecogData recogData){
         if(recogData == null)
             return null;
         DataInfo dataInfo = new DataInfo();
@@ -109,7 +109,7 @@ public class OcrUtils {
             }
         }
         //double price  = Double.parseDouble(dataInfo.getPrice());
-        return new ReceiptInfo(dataInfo.getName(),dataInfo.getDate(),0.0,null);
+        return new LocalReceiptInfo(dataInfo.getName(),dataInfo.getDate(),0.0,null);
 
     }
 

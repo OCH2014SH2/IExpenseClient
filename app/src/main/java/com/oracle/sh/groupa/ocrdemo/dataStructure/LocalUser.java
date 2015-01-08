@@ -3,7 +3,7 @@ package com.oracle.sh.groupa.ocrdemo.dataStructure;
 /**
  * Created by Alfred on 15/1/8.
  */
-public class User {
+public class LocalUser {
     private int empId;
     private String name;
     private int managerId;
@@ -14,11 +14,11 @@ public class User {
     private String email;
     private String password;
 
-    public User() {
+    public LocalUser() {
 
     }
 
-    public User(int empId, String name, int managerId, String managerName, String contactInfo, String costCenter, String bankAccount, String email) {
+    public LocalUser(int empId, String name, int managerId, String managerName, String contactInfo, String costCenter, String bankAccount, String email) {
         this.empId = empId;
         this.name = name;
         this.managerId = managerId;

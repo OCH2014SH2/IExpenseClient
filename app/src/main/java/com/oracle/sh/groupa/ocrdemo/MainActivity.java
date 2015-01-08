@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oracle.sh.groupa.ocrdemo.dataStructure.ReceiptInfo;
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
     private Uri imageUri;
 
     private RecogData recogData;
-    private ReceiptInfo receiptInfo;
+    private LocalReceiptInfo localReceiptInfo;
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -48,11 +48,11 @@ public class MainActivity extends Activity {
                     dialog.show();
                     break;
                 case OcrAsyncTask.OCR_END:
-                    receiptInfo = OcrUtils.getDataFromRecogText(recogData);
+                    localReceiptInfo = OcrUtils.getDataFromRecogText(recogData);
 
-                    String str = DataInfo.FAPIAO_TITLE+": "+receiptInfo.getTitle()+"\n"+
-                            DataInfo.FAPIAO_PRICE+": "+receiptInfo.getPrice()+"\n"+
-                            DataInfo.FAPIAO_DATE+": "+receiptInfo.getDateTime()+"\n";
+                    String str = DataInfo.FAPIAO_TITLE+": "+ localReceiptInfo.getTitle()+"\n"+
+                            DataInfo.FAPIAO_PRICE+": "+ localReceiptInfo.getPrice()+"\n"+
+                            DataInfo.FAPIAO_DATE+": "+ localReceiptInfo.getDateTime()+"\n";
 
                     textView.setText(str);
                     dialog.dismiss();
@@ -77,6 +77,14 @@ public class MainActivity extends Activity {
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        WebServiceAPI api = new WebServiceAPI();
+                        com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Transaction trans = api.queryTransactionDetail(1);
+                    }
+                }).start();*/
+
                 File outputImage = new File(Environment.getExternalStorageDirectory(), "tempImage.jpg");
                 try {
                     if (outputImage.exists()) {

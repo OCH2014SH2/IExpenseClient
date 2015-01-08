@@ -1,23 +1,32 @@
 package com.oracle.sh.groupa.ocrdemo.dataStructure;
 
+import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Receipt;
+
 /**
  * Created by Alfred on 15/1/8.
  */
-public class ReceiptInfo {
+public class LocalReceiptInfo {
     private String title;
     private String dateTime;
     private double price;
     private String picName;
     
-    public ReceiptInfo() {
+    public LocalReceiptInfo() {
         
     }
 
-    public ReceiptInfo(String title, String dateTime, double price, String picName) {
+    public LocalReceiptInfo(String title, String dateTime, double price, String picName) {
         this.title = title;
         this.dateTime = dateTime;
         this.price = price;
         this.picName = picName;
+    }
+
+    public LocalReceiptInfo(Receipt receipt) {
+        this.title = receipt.getTitle();
+        this.dateTime = receipt.getDate().toString();
+        this.price = receipt.getAmount();
+        this.picName = receipt.getImgUrl();
     }
 
     public String getTitle() {

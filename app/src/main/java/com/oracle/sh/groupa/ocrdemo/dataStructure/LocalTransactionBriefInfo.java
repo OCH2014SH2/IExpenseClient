@@ -3,7 +3,7 @@ package com.oracle.sh.groupa.ocrdemo.dataStructure;
 /**
  * Created by Alfred on 15/1/8.
  */
-public class TransactionBriefInfo {
+public class LocalTransactionBriefInfo {
     private int id;                                 //when the instance created, the id will be set
                                                     //to 0. It will be modified when the server side
                                                     //create a transaction record. It will be used
@@ -11,25 +11,25 @@ public class TransactionBriefInfo {
     private String dateTime;
     private int receiptAmount;
     private double totalPrice;
-    private User applicant;
-    private Transaction.TransactionType type;
+    private LocalUser applicant;
+    private LocalTransaction.TransactionType type;
     private String expiredDate;
-    private Transaction.TransactionStatus status;
-    private User approver;
+    private LocalTransaction.TransactionStatus status;
+    private LocalUser approver;
 
-    public TransactionBriefInfo() {
+    public LocalTransactionBriefInfo() {
 
     }
 
-    public TransactionBriefInfo(Transaction transactionInfo) {
-        this.dateTime = transactionInfo.getDateTime();
-        this.totalPrice = transactionInfo.getTotalPrice();
-        this.applicant = transactionInfo.getApplicant();
-        this.type = transactionInfo.getType();
-        this.expiredDate = transactionInfo.getExpiredDate();
-        this.status = transactionInfo.getStatus();
-        this.approver = transactionInfo.getApprover();
-        this.receiptAmount = transactionInfo.getReceiptInfos().size();
+    public LocalTransactionBriefInfo(LocalTransaction localTransactionInfo) {
+        this.dateTime = localTransactionInfo.getDateTime();
+        this.totalPrice = localTransactionInfo.getTotalPrice();
+        this.applicant = localTransactionInfo.getApplicant();
+        this.type = localTransactionInfo.getType();
+        this.expiredDate = localTransactionInfo.getExpiredDate();
+        this.status = localTransactionInfo.getStatus();
+        this.approver = localTransactionInfo.getApprover();
+        this.receiptAmount = localTransactionInfo.getLocalReceiptInfos().size();
     }
 
     public int getId() {
@@ -48,11 +48,11 @@ public class TransactionBriefInfo {
         return totalPrice;
     }
 
-    public User getApplicant() {
+    public LocalUser getApplicant() {
         return applicant;
     }
 
-    public Transaction.TransactionType getType() {
+    public LocalTransaction.TransactionType getType() {
         return type;
     }
 
@@ -60,11 +60,11 @@ public class TransactionBriefInfo {
         return expiredDate;
     }
 
-    public Transaction.TransactionStatus getStatus() {
+    public LocalTransaction.TransactionStatus getStatus() {
         return status;
     }
 
-    public User getApprover() {
+    public LocalUser getApprover() {
         return approver;
     }
 }

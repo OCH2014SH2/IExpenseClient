@@ -5,31 +5,31 @@ import java.util.ArrayList;
 /**
  * Created by Alfred on 15/1/8.
  */
-public class Transaction {
+public class LocalTransaction {
     private int id;                                 //when the instance created, the id will be set
                                                     //to 0. It will be modified when the server side
                                                     //create a transaction record. It will be used
                                                     //when query the whole information.
     private String dateTime;
-    private ArrayList<ReceiptInfo> receiptInfos;
+    private ArrayList<LocalReceiptInfo> localReceiptInfos;
     private double totalPrice;
-    private User applicant;
+    private LocalUser applicant;
     private TransactionType type;
     private String expiredDate;
     private TransactionStatus status;
     private String justification;
-    private User approver;
+    private LocalUser approver;
 
-    public Transaction() {
+    public LocalTransaction() {
 
     }
 
-    public Transaction(String dateTime, double totalPrice,
-                       User applicant, TransactionType type, String expiredDate,
-                       TransactionStatus status, String justification, User approver) {
+    public LocalTransaction(String dateTime, double totalPrice,
+                            LocalUser applicant, TransactionType type, String expiredDate,
+                            TransactionStatus status, String justification, LocalUser approver) {
         this.id = 0;
         this.dateTime = dateTime;
-        this.receiptInfos = new ArrayList<>();
+        this.localReceiptInfos = new ArrayList<>();
         this.totalPrice = totalPrice;
         this.applicant = applicant;
         this.type = type;
@@ -55,12 +55,12 @@ public class Transaction {
         this.dateTime = dateTime;
     }
 
-    public ArrayList<ReceiptInfo> getReceiptInfos() {
-        return receiptInfos;
+    public ArrayList<LocalReceiptInfo> getLocalReceiptInfos() {
+        return localReceiptInfos;
     }
 
-    public void setReceiptInfos(ArrayList<ReceiptInfo> receiptInfos) {
-        this.receiptInfos = receiptInfos;
+    public void setLocalReceiptInfos(ArrayList<LocalReceiptInfo> localReceiptInfos) {
+        this.localReceiptInfos = localReceiptInfos;
     }
 
     public double getTotalPrice() {
@@ -71,11 +71,11 @@ public class Transaction {
         this.totalPrice = totalPrice;
     }
 
-    public User getApplicant() {
+    public LocalUser getApplicant() {
         return applicant;
     }
 
-    public void setApplicant(User applicant) {
+    public void setApplicant(LocalUser applicant) {
         this.applicant = applicant;
     }
 
@@ -111,17 +111,17 @@ public class Transaction {
         this.justification = justification;
     }
 
-    public User getApprover() {
+    public LocalUser getApprover() {
         return approver;
     }
 
-    public void setApprover(User approver) {
+    public void setApprover(LocalUser approver) {
         this.approver = approver;
     }
 
-    public void addReceiptinfo(ReceiptInfo receiptInfo) {
-        this.receiptInfos.add(receiptInfo);
-        this.totalPrice += receiptInfo.getPrice();
+    public void addReceiptinfo(LocalReceiptInfo localReceiptInfo) {
+        this.localReceiptInfos.add(localReceiptInfo);
+        this.totalPrice += localReceiptInfo.getPrice();
 
     }
 }
