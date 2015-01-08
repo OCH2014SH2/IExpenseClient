@@ -6,10 +6,9 @@ import android.os.Bundle;
 /**
  * Created by lliyu on 1/8/2015.
  */
-public class Tab extends Activity {
+public class InfoActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab);
     }
 }
