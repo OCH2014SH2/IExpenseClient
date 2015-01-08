@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 import com.oracle.sh.groupa.ocrdemo.dataStructure.ReceiptInfo;
@@ -78,10 +77,10 @@ public class OcrUtils {
             return null;
         }
     }
-    public static ReceiptInfo getDataFromRecogText(RecogData recogData,DataInfo dataInfo){
-        if(recogData == null || dataInfo == null)
+    public static ReceiptInfo getDataFromRecogText(RecogData recogData){
+        if(recogData == null)
             return null;
-
+        DataInfo dataInfo = new DataInfo();
         String[] items = {DataInfo.FAPIAO_DATE,DataInfo.FAPIAO_PRICE,DataInfo.FAPIAO_TITLE};
         String recognizedText = recogData.getRecognizedText();
         String[] lines = recognizedText.split("/n");
