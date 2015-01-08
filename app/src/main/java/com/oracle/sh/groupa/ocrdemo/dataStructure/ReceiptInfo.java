@@ -8,14 +8,9 @@ public class ReceiptInfo {
     private String dateTime;
     private double price;
     private String picName;
-
-    public void setPicName(String picName) {
-        this.picName = picName;
-    }
-
-    public String getPicName() {
-
-        return picName;
+    
+    public ReceiptInfo() {
+        
     }
 
     public ReceiptInfo(String title, String dateTime, double price, String picName) {
@@ -48,5 +43,14 @@ public class ReceiptInfo {
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public void setPicName(String picName) {
+        this.picName = picName;
+    }
+
+    public String getPicName() {
+
+        return picName;
     }
 }
