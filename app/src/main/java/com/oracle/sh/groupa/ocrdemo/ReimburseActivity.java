@@ -174,7 +174,7 @@ public class ReimburseActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();
-                intent.setClass(ReimburseActivity.this,showrecipe.class);
+                intent.setClass(ReimburseActivity.this,ShowrecipeActivity.class);
                 startActivity(intent);
             }
         });

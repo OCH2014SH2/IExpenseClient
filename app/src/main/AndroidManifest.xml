@@ -24,6 +24,7 @@
         <activity android:name=".ReimburseActivity"/>
         <activity android:name=".InfoActivity"/>
         <activity android:name=".QueryActivity"/>
+        <activity android:name=".ShowrecipeActivity"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

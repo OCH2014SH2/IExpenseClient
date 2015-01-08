@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by jishshi on 2015/1/8.
  */
-public class showrecipe extends Activity {
+public class ShowrecipeActivity extends Activity {
     public ListView listview;
     private ArrayAdapter adapter;
     public Spinner spinner;
