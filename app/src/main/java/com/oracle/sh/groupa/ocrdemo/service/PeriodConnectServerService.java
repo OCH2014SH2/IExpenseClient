@@ -23,7 +23,7 @@ public class PeriodConnectServerService extends Service{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
