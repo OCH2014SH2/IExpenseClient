@@ -89,19 +89,37 @@ public class OcrUtils {
         for (String line : lines) {
             for (String item : items) {
                 if (line.contains(item)) {
-                    String temp;
+                    String temp = null;
+                    int index;
                     switch (item) {
-
                         case DataInfo.FAPIAO_TITLE:
                             temp = line.substring(line.indexOf(item) + item.length(), line.length() - 1);
                             dataInfo.setName(temp);
                             break;
                         case DataInfo.FAPIAO_PRICE:
-                            temp = line.substring(line.indexOf(item) + item.length(), line.length() - 1);
+                            index = line.indexOf(item);
+                            temp = "";
+                            while (index >= 0) {
+                                char ch = line.charAt(--index);
+                                if ((ch <= '9' && ch >= '0') || (ch == '.' || ch == ','))
+                                    temp += ch;
+                                else
+                                    break;
+                            }
+                            StringBuffer sb = new StringBuffer(temp);
+                            temp = sb.reverse().toString();
                             dataInfo.setPrice(temp);
                             break;
                         case DataInfo.FAPIAO_DATE:
-                            temp = line.substring(line.indexOf(item) + item.length(), line.length() - 1);
+                            index = line.indexOf(item) + item.length();
+                            temp = "";
+                            while (index < line.length()) {
+                                char ch = line.charAt(index++);
+                                if ((ch <= '9' && ch >= '0') || (ch == '.' || ch == ','||ch=='-'))
+                                    temp += ch;
+                                else
+                                    break;
+                            }
                             dataInfo.setDate(temp);
                             break;
                         default:
@@ -110,9 +128,17 @@ public class OcrUtils {
                 }
             }
         }
-        //double price  = Double.parseDouble(dataInfo.getPrice());
+        double price = 0.0;
+        try{
+            price=Double.parseDouble(dataInfo.getPrice());
+        }
+        catch (Exception e){
+            price=0.0;
+            Log.e("parse double error",e.toString());
+        }
+
         String picAbsolutePath = PHOTO_DIR + recogData.getPicFileName();
-        return new LocalReceiptInfo(dataInfo.getName(), dataInfo.getDate(), 0.0, picAbsolutePath);
+        return new LocalReceiptInfo(dataInfo.getName(), dataInfo.getDate(), price, picAbsolutePath);
 
     }
 

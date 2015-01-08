@@ -25,6 +25,7 @@ import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Created by lliyu on 12/26/2014.
@@ -95,7 +96,7 @@ public class ReimburseActivity extends Activity {
                         et03.getText().toString()=="" )
                     return;
                 Intent intent = new Intent(ReimburseActivity.this, ShowrecipeActivity.class);
-                intent.putExtra("data", localReceiptInfo);
+                intent.putExtra("data", (Serializable)localReceiptInfo);
                 startActivity(intent);
             }
         });

@@ -6,7 +6,7 @@ package com.oracle.sh.groupa.ocrdemo;
 public class DataInfo {
 
     public static final String FAPIAO_TITLE = "名称";
-    public static final String FAPIAO_PRICE = "羊";
+    public static final String FAPIAO_PRICE = "元";
     public static final String FAPIAO_DATE = "日期";
 
     private String name;

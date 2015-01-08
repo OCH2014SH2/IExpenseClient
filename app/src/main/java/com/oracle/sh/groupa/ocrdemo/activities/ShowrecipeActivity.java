@@ -1,11 +1,13 @@
 package com.oracle.sh.groupa.ocrdemo.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
 import com.oracle.sh.groupa.ocrdemo.R;
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,11 +28,15 @@ public class ShowrecipeActivity extends Activity implements View.OnClickListener
     String price;
     String datetime;
     static int i = 0; //初始化一次
+    private LocalReceiptInfo localReceiptInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showrecipe);
+        Intent intent = getIntent();
+        localReceiptInfo = (LocalReceiptInfo)intent.getSerializableExtra("data");
+
         spinner = (Spinner) findViewById(R.id.spinner);
         listview = (ListView) findViewById(R.id.listView);
         add = (Button) findViewById(R.id.button01);

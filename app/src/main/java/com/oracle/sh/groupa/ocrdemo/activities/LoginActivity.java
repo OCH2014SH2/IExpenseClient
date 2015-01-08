@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
                 if (account.equals("22641") && password.equals("admin")) {
                     Toast.makeText(LoginActivity.this, "login success", Toast.LENGTH_SHORT).show();
                     //TODO
-                    Intent intent = new Intent(LoginActivity.this, MyTabActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, ReimburseActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
