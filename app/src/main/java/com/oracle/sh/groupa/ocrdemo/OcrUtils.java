@@ -92,7 +92,7 @@ public class OcrUtils {
                     switch (item){
 
                         case DataInfo.FAPIAO_TITLE:
-                            temp = line.substring(line.indexOf(item)+item.length(),line.indexOf(item)+item.length()+3);
+                            temp = line.substring(line.indexOf(item)+item.length(),item.length()-1);
                             dataInfo.setName(temp);
                             break;
                         case DataInfo.FAPIAO_PRICE:

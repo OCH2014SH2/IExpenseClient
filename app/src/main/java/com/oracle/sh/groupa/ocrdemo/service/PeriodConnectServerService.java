@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 
 import com.oracle.sh.groupa.ocrdemo.ContextApplication;
-import com.oracle.sh.groupa.ocrdemo.MainActivity;
+import com.oracle.sh.groupa.ocrdemo.ReimburseActivity;
 import com.oracle.sh.groupa.ocrdemo.R;
 import com.oracle.sh.groupa.ocrdemo.receiver.AlarmReceiver;
 import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
@@ -35,7 +35,7 @@ public class PeriodConnectServerService extends Service{
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                     Notification notification = new Notification(R.drawable.iexpense,"a iexpense message",System.currentTimeMillis());
-                    Intent notificationIntent = new Intent(ContextApplication.getContext(),MainActivity.class);
+                    Intent notificationIntent = new Intent(ContextApplication.getContext(),ReimburseActivity.class);
                     PendingIntent pi = PendingIntent.getActivity(ContextApplication.getContext(),0,notificationIntent,PendingIntent.FLAG_CANCEL_CURRENT);
                     notification.setLatestEventInfo(ContextApplication.getContext(),"IExpense",messageCountNeedToApprove+"request need to be handle",pi);
                     manager.notify(1,notification);

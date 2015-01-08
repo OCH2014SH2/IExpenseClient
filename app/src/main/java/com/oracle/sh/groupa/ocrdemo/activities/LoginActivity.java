@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.oracle.sh.groupa.ocrdemo.MainActivity;
+import com.oracle.sh.groupa.ocrdemo.ReimburseActivity;
 import com.oracle.sh.groupa.ocrdemo.R;
 import com.oracle.sh.groupa.ocrdemo.service.PeriodConnectServerService;
 
@@ -44,7 +44,7 @@ public class LoginActivity extends Activity {
                 if(account.equals("22641") && password.equals("admin")){
                     Toast.makeText(LoginActivity.this,"login success",Toast.LENGTH_SHORT).show();
                     //TODO
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, ReimburseActivity.class);
                     startActivity(intent);
                     finish();
                 }

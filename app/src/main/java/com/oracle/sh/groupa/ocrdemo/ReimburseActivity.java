@@ -14,12 +14,10 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
-import com.oracle.sh.groupa.ocrdemo.service.PeriodConnectServerService;
-import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,15 +25,19 @@ import java.io.IOException;
 /**
  * Created by lliyu on 12/26/2014.
  */
-public class MainActivity extends Activity {
+public class ReimburseActivity extends Activity {
 
     private static final int TAKE_PHOTO = 1;
     private static final int CROP_PHOTO = 2;
 
-    private Button takePhotoButton;
-    private ImageView picture;
+    private Button button;
+    private ImageView imageView;
+    private EditText et01;
+    private EditText et02;
+    private EditText et03;
+
     private ProgressDialog dialog;
-    private TextView textView;
+
     private String photoFileName;
 
     private Uri imageUri;
@@ -52,11 +54,10 @@ public class MainActivity extends Activity {
                 case OcrAsyncTask.OCR_END:
                     localReceiptInfo = OcrUtils.getDataFromRecogText(recogData);
 
-                    String str = DataInfo.FAPIAO_TITLE+": "+ localReceiptInfo.getTitle()+"\n"+
-                            DataInfo.FAPIAO_PRICE+": "+ localReceiptInfo.getPrice()+"\n"+
-                            DataInfo.FAPIAO_DATE+": "+ localReceiptInfo.getDateTime()+"\n";
+                    et01.setText(localReceiptInfo.getTitle());
+                    et02.setText(String.valueOf(localReceiptInfo.getPrice()));
+                    et03.setText(localReceiptInfo.getDateTime());
 
-                    textView.setText(str);
                     dialog.dismiss();
                     break;
                 default:
@@ -69,57 +70,29 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.reimburse);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.cancel(1);
 
-        //check language package
-        new OcrUtils.LangImportAsyncTask().execute(MainActivity.this);
-
-        ExpenseManager expenseManager = new ExpenseManager();
         initActivity();
+        imageView=(ImageView)findViewById(R.id.imageView);
+        et01=(EditText)findViewById(R.id.editText01);
+        et02=(EditText)findViewById(R.id.editText02);
+        et03=(EditText)findViewById(R.id.editText03);
+        button = (Button) findViewById(R.id.button);
 
-        takePhotoButton.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LocalReceiptInfo trans1 = new LocalReceiptInfo();
-                        trans1.setDateTime("!!!");
-                        trans1.setTitle("1");
-                        trans1.setPicName("3");
-                        trans1.setPrice(5);
-                        LocalReceiptInfo trans2 = new LocalReceiptInfo();
-                        trans2.setDateTime("???");
-                        trans2.setTitle("2");
-                        trans2.setPicName("2");
-                        trans2.setPrice(3);
-                        LocalTransaction localTransaction = new LocalTransaction();
-                        localTransaction.setDateTime("1");
-                        LocalUser user1 = new LocalUser(1123123, "henry", 2312313, "alfred", "13888888888", "tt", "bank", "henry", "bank");
-                        localTransaction.setApplicant(user1);
-                        localTransaction.setJustification("wo yao chi fan");
-                        ArrayList<LocalReceiptInfo> listt = new ArrayList<LocalReceiptInfo>();
-                        listt.add(trans1);
-                        listt.add(trans2);
-                        localTransaction.setLocalReceiptInfos(listt);
-                        localTransaction.setDateTime("150111");
-                        localTransaction.setJustification("aaa");
-                        localTransaction.setApprover(user1);
-                        localTransaction.setExpiredDate("123123");
-                        localTransaction.setType(LocalTransaction.TransactionType.Accommodation);
-                        localTransaction.setStatus(LocalTransaction.TransactionStatus.Pending);
-
-
-                        ExpenseManager.submitTransaction(localTransaction);
-                        int count  = ExpenseManager.querySpecificTransactStatus("22641", 0);
-                        List<Transaction> list = ExpenseManager.queryAllTransactStatus("22641");
-                        Log.d("a", "a");
-
-                    }
-                }).start();*/
+                Intent intent=new Intent(ReimburseActivity.this,ShowrecipeActivity.class);
+                intent.putExtra("data", localReceiptInfo);
+                startActivity(intent);
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 photoFileName = String.valueOf(System.currentTimeMillis())+".jpg";
                 //File dir = Environment.getExternalStorageDirectory();
 
@@ -139,13 +112,14 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, TAKE_PHOTO);
             }
         });
+
+        //check language package
+        new OcrUtils.LangImportAsyncTask().execute(ReimburseActivity.this);
+
     }
 
     private void initActivity() {
         recogData = new RecogData(this);
-        takePhotoButton = (Button) findViewById(R.id.take_photo);
-        picture = (ImageView) findViewById(R.id.photo);
-        textView = (TextView) findViewById(R.id.recognized_text);
         dialog = new ProgressDialog(this);
         dialog.setTitle("info");
         dialog.setMessage("recognizing...");
@@ -172,7 +146,7 @@ public class MainActivity extends Activity {
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         recogData.setPicFileName(photoFileName);
                         recogData.setBitmap(bitmap);
-                        picture.setImageBitmap(bitmap);
+                        imageView.setImageBitmap(bitmap);
 
                         new OcrAsyncTask(handler).execute(recogData);
 
