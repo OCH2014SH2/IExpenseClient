@@ -30,7 +30,6 @@ public class RecogData {
     }
 
     public Bitmap getBitmap() {
-
         return bitmap;
     }
 

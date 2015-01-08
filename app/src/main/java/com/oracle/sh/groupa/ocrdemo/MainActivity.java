@@ -85,9 +85,9 @@ public class MainActivity extends Activity {
                 }).start();*/
 
                 String photoFile = String.valueOf(System.currentTimeMillis())+".jpg";
-                File dir = Environment.getExternalStorageDirectory();
+                //File dir = Environment.getExternalStorageDirectory();
 
-                File outputImage = new File(dir,photoFile);
+                File outputImage = new File(OcrUtils.PHOTO_DIR,photoFile);
                 try {
                     if (outputImage.exists()) {
                         outputImage.delete();

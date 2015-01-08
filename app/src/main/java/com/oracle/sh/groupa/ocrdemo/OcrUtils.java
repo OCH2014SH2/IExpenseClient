@@ -3,6 +3,7 @@ package com.oracle.sh.groupa.ocrdemo;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
@@ -21,7 +22,7 @@ public class OcrUtils {
     private static final String DEFAULT_LANGUAGE = "eng";
     private static final String CHINESE_LANGUAGE = "chi_sim";
 
-
+    public static final String PHOTO_DIR = Environment.getExternalStorageDirectory().toString();
 
     private static String tessDataDirPath = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()// 得到外部存储卡的数据库的路径名
             + "/tessdata/";// 我要存储的目录
