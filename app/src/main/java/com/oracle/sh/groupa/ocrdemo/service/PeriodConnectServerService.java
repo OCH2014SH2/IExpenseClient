@@ -1,13 +1,19 @@
 package com.oracle.sh.groupa.ocrdemo.service;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.SystemClock;
 
+import com.oracle.sh.groupa.ocrdemo.ContextApplication;
+import com.oracle.sh.groupa.ocrdemo.MainActivity;
+import com.oracle.sh.groupa.ocrdemo.R;
 import com.oracle.sh.groupa.ocrdemo.receiver.AlarmReceiver;
+import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
 
 /**
  * Created by lliyu on 1/8/2015.
@@ -19,13 +25,23 @@ public class PeriodConnectServerService extends Service{
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, int flags, int startId) {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                int messageCountNeedToApprove = ExpenseManager.querySpecificNeedApprovedTransact("22641", 0);
 
+                if(messageCountNeedToApprove>0){
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                    Notification notification = new Notification(R.drawable.iexpense,"a iexpense message",System.currentTimeMillis());
+                    Intent notificationIntent = new Intent(ContextApplication.getContext(),MainActivity.class);
+                    PendingIntent pi = PendingIntent.getActivity(ContextApplication.getContext(),0,notificationIntent,PendingIntent.FLAG_CANCEL_CURRENT);
+                    notification.setLatestEventInfo(ContextApplication.getContext(),"IExpense",messageCountNeedToApprove+"request need to be handle",pi);
+                    manager.notify(1,notification);
+                }
             }
-        });
+        }).start();
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         int period = 60*1000;
         long triggerAtTime = SystemClock.elapsedRealtime()+period;

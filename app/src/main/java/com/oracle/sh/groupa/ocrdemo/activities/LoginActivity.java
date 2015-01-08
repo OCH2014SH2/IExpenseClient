@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.oracle.sh.groupa.ocrdemo.MainActivity;
 import com.oracle.sh.groupa.ocrdemo.R;
+import com.oracle.sh.groupa.ocrdemo.service.PeriodConnectServerService;
 
 /**
  * Created by lliyu on 1/8/2015.
@@ -24,6 +25,10 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = new Intent(this, PeriodConnectServerService.class);
+        startService(intent);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layout_login );
 

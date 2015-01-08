@@ -1,6 +1,7 @@
 package com.oracle.sh.groupa.ocrdemo;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
+import com.oracle.sh.groupa.ocrdemo.service.PeriodConnectServerService;
 import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
 
 import java.io.File;
@@ -68,6 +70,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.cancel(1);
 
         //check language package
         new OcrUtils.LangImportAsyncTask().execute(MainActivity.this);
@@ -145,6 +150,7 @@ public class MainActivity extends Activity {
         dialog.setTitle("info");
         dialog.setMessage("recognizing...");
         dialog.setCancelable(false);
+
     }
 
     @Override
