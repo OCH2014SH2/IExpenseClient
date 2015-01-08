@@ -5,4 +5,7 @@
     <string name="title">Login</string>
     <string name="Login">Login</string>
     <string name="Clear">Clear</string>
+    <string name="bao_xiao">bx</string>
+    <string name="cha_xun">query</string>
+    <string name="info">info</string>
 </resources>
