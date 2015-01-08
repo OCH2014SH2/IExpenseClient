@@ -25,6 +25,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 /**
  * Created by lliyu on 12/26/2014.
@@ -165,10 +167,18 @@ public class ReimburseActivity extends Activity {
 
 }
     private Button button;
+    private ImageView imageView;
+    private EditText et01;
+    private EditText et02;
+    private EditText et03;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reimburse);
+        imageView=(ImageView)findViewById(R.id.imageView);
+        et01=(EditText)findViewById(R.id.editText01);
+        et02=(EditText)findViewById(R.id.editText02);
+        et03=(EditText)findViewById(R.id.editText03);
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

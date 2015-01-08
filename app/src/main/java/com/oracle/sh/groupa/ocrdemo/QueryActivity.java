@@ -33,17 +33,17 @@ public class QueryActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                //List<LocalTransaction>  list=manager.queryAllTransactStatus(user_id);
+                list=manager.queryAllTransactStatus(user_id);
             }
 
         });
-       /* ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
+       ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
         for (int j = 0; j < list.size(); j++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("date", list.get(j).getDate());
-            map.put("price", list.get(j).get);
-            map.put("type", list.get(j).getIngredient());
-            map.put("status", list.get(j).getIngredient());
+            map.put("date", list.get(j).getDateTime());
+            map.put("price", list.get(j).getTotalPrice());
+            map.put("type", list.get(j).getType());
+            map.put("status", list.get(j).getStatus());
             listItem.add(map);
         }
         //生成适配器的Item和动态数组对应的元素
@@ -55,6 +55,6 @@ public class QueryActivity extends Activity {
                 new int[] {R.id.textview01,R.id.textview02,R.id.textview03,R.id.textview03,R.id.textview04}
         );
         //添加并且显示
-        listview.setAdapter(listItemAdapter); */
+        listview.setAdapter(listItemAdapter);
     }
 }

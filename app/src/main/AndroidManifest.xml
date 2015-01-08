@@ -13,6 +13,9 @@
         <activity android:name=".activities.LoginActivity"
         <activity android:name=".MyTabActivity"
             android:label="OCRDemo">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".MyTabActivity" android:label="OCRDemo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
