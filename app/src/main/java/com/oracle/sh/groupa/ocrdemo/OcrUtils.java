@@ -22,7 +22,7 @@ public class OcrUtils {
     private static final String DEFAULT_LANGUAGE = "eng";
     private static final String CHINESE_LANGUAGE = "chi_sim";
 
-    public static final String PHOTO_DIR = Environment.getExternalStorageDirectory().toString();
+    public static final String PHOTO_DIR = Environment.getExternalStorageDirectory().toString()+"/";
 
     private static String tessDataDirPath = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()// 得到外部存储卡的数据库的路径名
             + "/tessdata/";// 我要存储的目录
@@ -110,7 +110,8 @@ public class OcrUtils {
             }
         }
         //double price  = Double.parseDouble(dataInfo.getPrice());
-        return new LocalReceiptInfo(dataInfo.getName(),dataInfo.getDate(),0.0,null);
+        String picAbsolutePath = PHOTO_DIR+recogData.getPicFileName();
+        return new LocalReceiptInfo(dataInfo.getName(),dataInfo.getDate(),0.0,picAbsolutePath);
 
     }
 

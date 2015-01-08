@@ -13,6 +13,10 @@ public class RecogData {
     private String recognizedText;
     private Activity activity;
 
+
+
+    private String picFileName;
+
     public RecogData(Activity activity) {
         this.activity = activity;
     }
@@ -39,6 +43,15 @@ public class RecogData {
 
     public Activity getActivity() {
         return activity;
+    }
+
+    public void setPicFileName(String picFileName) {
+        this.picFileName = picFileName;
+    }
+
+    public String getPicFileName() {
+
+        return picFileName;
     }
 
 

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -34,6 +33,7 @@ public class MainActivity extends Activity {
     private ImageView picture;
     private ProgressDialog dialog;
     private TextView textView;
+    private String photoFileName;
 
     private Uri imageUri;
 
@@ -84,10 +84,10 @@ public class MainActivity extends Activity {
                     }
                 }).start();*/
 
-                String photoFile = String.valueOf(System.currentTimeMillis())+".jpg";
+                photoFileName = String.valueOf(System.currentTimeMillis())+".jpg";
                 //File dir = Environment.getExternalStorageDirectory();
 
-                File outputImage = new File(OcrUtils.PHOTO_DIR,photoFile);
+                File outputImage = new File(OcrUtils.PHOTO_DIR, photoFileName);
                 try {
                     if (outputImage.exists()) {
                         outputImage.delete();
@@ -132,7 +132,7 @@ public class MainActivity extends Activity {
                 if (resultCode == RESULT_OK) {
                     try {
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-
+                        recogData.setPicFileName(photoFileName);
                         recogData.setBitmap(bitmap);
                         picture.setImageBitmap(bitmap);
 
