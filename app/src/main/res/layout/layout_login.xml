@@ -9,9 +9,16 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewOracle"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/background"/>
+        android:background="@drawable/oracle"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewIExpense"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/iexpense"/>
 
     <LinearLayout
         android:orientation="horizontal"
