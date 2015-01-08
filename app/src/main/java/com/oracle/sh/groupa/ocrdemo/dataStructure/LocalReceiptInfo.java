@@ -61,4 +61,14 @@ public class LocalReceiptInfo {
 
         return picName;
     }
+
+    public Receipt toReceipt() {
+        Receipt receipt = new Receipt();
+        receipt.setDate(this.getDateTime());
+        receipt.setAmount(this.getPrice());
+        receipt.setImgUrl(this.getPicName());
+        receipt.setTitle(this.getTitle());
+
+        return receipt;
+    }
 }

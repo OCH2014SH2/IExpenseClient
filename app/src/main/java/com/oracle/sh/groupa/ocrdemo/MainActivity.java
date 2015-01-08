@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
+import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,23 +72,54 @@ public class MainActivity extends Activity {
         //check language package
         new OcrUtils.LangImportAsyncTask().execute(MainActivity.this);
 
+        ExpenseManager expenseManager = new ExpenseManager();
         initActivity();
 
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*new Thread(new Runnable() {
+               /* new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        WebServiceAPI api = new WebServiceAPI();
-                        com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Transaction trans = api.queryTransactionDetail(1);
+                        LocalReceiptInfo trans1 = new LocalReceiptInfo();
+                        trans1.setDateTime("!!!");
+                        trans1.setTitle("1");
+                        trans1.setPicName("3");
+                        trans1.setPrice(5);
+                        LocalReceiptInfo trans2 = new LocalReceiptInfo();
+                        trans2.setDateTime("???");
+                        trans2.setTitle("2");
+                        trans2.setPicName("2");
+                        trans2.setPrice(3);
+                        LocalTransaction localTransaction = new LocalTransaction();
+                        localTransaction.setDateTime("1");
+                        LocalUser user1 = new LocalUser(1123123, "henry", 2312313, "alfred", "13888888888", "tt", "bank", "henry", "bank");
+                        localTransaction.setApplicant(user1);
+                        localTransaction.setJustification("wo yao chi fan");
+                        ArrayList<LocalReceiptInfo> listt = new ArrayList<LocalReceiptInfo>();
+                        listt.add(trans1);
+                        listt.add(trans2);
+                        localTransaction.setLocalReceiptInfos(listt);
+                        localTransaction.setDateTime("150111");
+                        localTransaction.setJustification("aaa");
+                        localTransaction.setApprover(user1);
+                        localTransaction.setExpiredDate("123123");
+                        localTransaction.setType(LocalTransaction.TransactionType.Accommodation);
+                        localTransaction.setStatus(LocalTransaction.TransactionStatus.Pending);
+
+
+                        ExpenseManager.submitTransaction(localTransaction);
+                        int count  = ExpenseManager.querySpecificTransactStatus("22641", 0);
+                        List<Transaction> list = ExpenseManager.queryAllTransactStatus("22641");
+                        Log.d("a", "a");
+
                     }
                 }).start();*/
-
                 photoFileName = String.valueOf(System.currentTimeMillis())+".jpg";
                 //File dir = Environment.getExternalStorageDirectory();
 
                 File outputImage = new File(OcrUtils.PHOTO_DIR, photoFileName);
+
                 try {
                     if (outputImage.exists()) {
                         outputImage.delete();
@@ -99,7 +131,7 @@ public class MainActivity extends Activity {
                 imageUri = Uri.fromFile(outputImage);
                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(intent, TAKE_PHOTO);
+                startActivityForResult(intent, TAKE_PHOTO);*/
             }
         });
     }

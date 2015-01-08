@@ -1,5 +1,8 @@
 package com.oracle.sh.groupa.ocrdemo.dataStructure;
 
+import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Receipt;
+import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Transaction;
+
 import java.util.ArrayList;
 
 /**
@@ -37,6 +40,7 @@ public class LocalTransaction {
         this.status = status;
         this.justification = justification;
         this.approver = approver;
+        this.status = TransactionStatus.Pending;
     }
 
     public enum TransactionType {
@@ -123,5 +127,29 @@ public class LocalTransaction {
         this.localReceiptInfos.add(localReceiptInfo);
         this.totalPrice += localReceiptInfo.getPrice();
 
+    }
+
+    public Transaction toTransaction() {
+        Transaction transaction = new Transaction();
+        transaction.setApplicant(this.getApplicant().getName());
+        transaction.setTotalAmount(this.getTotalPrice());
+
+        Receipt[] localReceiptInfosArray = new Receipt[this.getLocalReceiptInfos().size()];
+
+        for (int i = 0; i < this.getLocalReceiptInfos().size(); i++) {
+            localReceiptInfosArray[i] = this.getLocalReceiptInfos().get(i).toReceipt();
+        }
+
+        transaction.setReceiptList(localReceiptInfosArray);
+
+        transaction.setJustification(this.getJustification());
+        transaction.setType(this.getType().toString());
+        transaction.setDate(this.getDateTime());
+        transaction.setStatus(this.getStatus().ordinal());
+        transaction.setApprover(this.getApprover().getName());
+        transaction.setExpireDate(this.getExpiredDate());
+        transaction.setTotalAmount(this.getTotalPrice());
+
+        return transaction;
     }
 }

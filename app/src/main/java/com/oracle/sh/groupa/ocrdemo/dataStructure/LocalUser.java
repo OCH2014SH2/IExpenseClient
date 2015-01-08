@@ -1,5 +1,7 @@
 package com.oracle.sh.groupa.ocrdemo.dataStructure;
 
+import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.User;
+
 /**
  * Created by Alfred on 15/1/8.
  */
@@ -13,12 +15,13 @@ public class LocalUser {
     private String bankAccount;
     private String email;
     private String password;
+    private String bankName;
 
     public LocalUser() {
 
     }
 
-    public LocalUser(int empId, String name, int managerId, String managerName, String contactInfo, String costCenter, String bankAccount, String email) {
+    public LocalUser(int empId, String name, int managerId, String managerName, String contactInfo, String costCenter, String bankAccount, String email, String bankName) {
         this.empId = empId;
         this.name = name;
         this.managerId = managerId;
@@ -27,6 +30,7 @@ public class LocalUser {
         this.costCenter = costCenter;
         this.bankAccount = bankAccount;
         this.email = email;
+        this.bankName = bankName;
     }
 
     public String getPassword() {
@@ -99,5 +103,28 @@ public class LocalUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public User toUser(){
+        User user = new User();
+        user.setEmployeId(String.valueOf(this.getEmpId()));
+        user.setBankAccount(this.getBankAccount());
+        user.setBankName(this.getBankName());
+        user.setCostCenter(this.getCostCenter());
+        user.setEmail(this.getEmail());
+        user.setManagerId(this.getManagerName());
+        user.setPassword(this.getPassword());
+        user.setName(this.getName());
+        user.setContact(this.getContactInfo());
+
+        return user;
     }
 }

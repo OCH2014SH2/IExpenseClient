@@ -1,8 +1,7 @@
 package com.oracle.sh.groupa.ocrdemo.webService;
 
 import com.google.gson.Gson;
-import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalTransaction;
-import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.QueryConfig;
+import com.google.gson.reflect.TypeToken;
 import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Transaction;
 import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.User;
 
@@ -48,7 +47,7 @@ public class WebServiceAPI {
         // ��ȡ���صĽ��  
         return object;
     }
-	public int addTransaction(LocalTransaction trans){
+	public int addTransaction(Transaction trans){
         // ���õķ������  
         String methodName = "addTransaction";  
         
@@ -58,8 +57,9 @@ public class WebServiceAPI {
         // ָ��WebService������ռ�͵��õķ�����  
         SoapObject rpc = new SoapObject(nameSpace, methodName);  
   
-        // ���������WebService�ӿ���Ҫ����Ĳ���  
-        rpc.addProperty("arg0", trans);
+        // ���������WebService�ӿ���Ҫ����Ĳ���
+        ;
+        rpc.addProperty("arg0", gson.toJson(trans, Transaction.class));
   
         // ��ȡ���ص����  
         SoapObject object = execute(rpc,soapAction);  
@@ -68,7 +68,7 @@ public class WebServiceAPI {
         return Integer.valueOf(result);
 	}
 	
-	public com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Transaction queryTransactionDetail(int transactionId){
+	public Transaction queryTransactionDetail(int transactionId){
         // ���õķ������  
         String methodName = "queryTransactionDetail";  
         
@@ -90,7 +90,7 @@ public class WebServiceAPI {
         return result;
 	}
 	
-	public List<Transaction> queryTransactionList(QueryConfig queryConfig){
+	public List<Transaction> queryTransactionList(String userId, int status){
         // ���õķ������  
         String methodName = "queryTransactionList";  
         
@@ -101,13 +101,14 @@ public class WebServiceAPI {
         SoapObject rpc = new SoapObject(nameSpace, methodName);  
   
         // ���������WebService�ӿ���Ҫ����Ĳ���  
-        rpc.addProperty("arg0", queryConfig);
+        rpc.addProperty("arg0", userId);
+        rpc.addProperty("arg1", status);
   
         // ��ȡ���ص����  
         SoapObject object = execute(rpc,soapAction);  
         
         // ��ȡ���صĽ��  
-        List<Transaction> result = (List<Transaction>)(object.getProperty(0));
+        List<Transaction> result = gson.fromJson(object.getProperty(0).toString(), new TypeToken<List<Transaction>>(){}.getType());
 
         return result;
 	}
@@ -148,7 +149,7 @@ public class WebServiceAPI {
         SoapObject rpc = new SoapObject(nameSpace, methodName);  
   
         // ���������WebService�ӿ���Ҫ����Ĳ���  
-        rpc.addProperty("arg0", user);
+        rpc.addProperty("arg0", gson.toJson(user, User.class));
   
         // ��ȡ���ص����  
         SoapObject object = execute(rpc,soapAction);  
