@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 
