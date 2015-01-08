@@ -36,8 +36,6 @@ public class MainActivity extends Activity {
     private ProgressDialog dialog;
     private TextView textView;
 
-    private String recognizedText;
-    private Bitmap bitmap;
     private Uri imageUri;
 
     private RecogData recogData;
@@ -50,8 +48,8 @@ public class MainActivity extends Activity {
                     dialog.show();
                     break;
                 case OcrAsyncTask.OCR_END:
-                    recognizedText = recogData.getRecognizedText();
                     receiptInfo = OcrUtils.getDataFromRecogText(recogData);
+
                     String str = DataInfo.FAPIAO_TITLE+": "+receiptInfo.getTitle()+"\n"+
                             DataInfo.FAPIAO_PRICE+": "+receiptInfo.getPrice()+"\n"+
                             DataInfo.FAPIAO_DATE+": "+receiptInfo.getDateTime()+"\n";
@@ -123,7 +121,7 @@ public class MainActivity extends Activity {
             case CROP_PHOTO:
                 if (resultCode == RESULT_OK) {
                     try {
-                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
 
                         recogData.setBitmap(bitmap);
                         picture.setImageBitmap(bitmap);

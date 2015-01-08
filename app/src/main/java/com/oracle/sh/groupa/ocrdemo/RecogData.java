@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
  * Created by lliyu on 1/7/2015.
  */
 public class RecogData {
+
+
     private Bitmap bitmap;
     private String recognizedText;
     private Activity activity;

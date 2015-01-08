@@ -108,8 +108,8 @@ public class OcrUtils {
                 }
             }
         }
-        double price  = Double.parseDouble(dataInfo.getPrice());
-        return new ReceiptInfo(dataInfo.getName(),dataInfo.getDate(),price,null);
+        //double price  = Double.parseDouble(dataInfo.getPrice());
+        return new ReceiptInfo(dataInfo.getName(),dataInfo.getDate(),0.0,null);
 
     }
 
