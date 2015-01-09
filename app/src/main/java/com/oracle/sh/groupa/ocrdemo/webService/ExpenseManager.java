@@ -23,6 +23,9 @@ import it.sauronsoftware.base64.Base64;
 public class ExpenseManager {
     public static WebServiceAPI webServiceAPI;
     public static String STORE_DIR = "/mnt/sdcard/";
+    static{
+        webServiceAPI = new WebServiceAPI();
+    }
 
     public ExpenseManager() {
         this.webServiceAPI = new WebServiceAPI();
