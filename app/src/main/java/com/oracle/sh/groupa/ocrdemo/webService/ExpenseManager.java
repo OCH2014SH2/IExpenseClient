@@ -38,8 +38,9 @@ public class ExpenseManager {
                 receipt.setImgUrl(image2BytesStr(receipt.getImgUrl()));
             }
 
-            webServiceAPI.addTransaction(localTransactionInfo.toTransaction());
+            webServiceAPI.addTransaction(transaction);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
 

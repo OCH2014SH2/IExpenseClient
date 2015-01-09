@@ -6,8 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+import com.oracle.sh.groupa.ocrdemo.ConnectionAsynTask;
 import com.oracle.sh.groupa.ocrdemo.R;
+import com.oracle.sh.groupa.ocrdemo.RecogData;
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalTransaction;
+import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalUser;
+import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
+import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,25 +25,48 @@ public class ShowrecipeActivity extends Activity implements View.OnClickListener
     public ListView listview;
     private ArrayAdapter adapter;
     public Spinner spinner;
-    private static String[] title_list = new String[]{};
-    private static String[] price_list = new String[]{};
-    private static String[] date_list = new String[]{};
+    private static ArrayList<String> title_list = new ArrayList<String>();
+    private static ArrayList<String> price_list = new ArrayList<String>();
+    private static ArrayList<String> date_list = new ArrayList<String>();
     private Button add;
     private Button submit;
     String title;
     String price;
     String datetime;
-    static int i = 0; //初始化一次
-    private LocalReceiptInfo localReceiptInfo;
 
+    private LocalReceiptInfo localReceiptInfo;
+    private static LocalTransaction transaction = new LocalTransaction();
+
+    static {
+        transaction.setType(LocalTransaction.TransactionType.Meals);
+        LocalUser user = new LocalUser();
+        user.setName("Eric Yu");
+        user.setEmpId(22641);
+
+        transaction.setApplicant(user);
+        transaction.setApprover(user);
+        transaction.setDateTime("2015-1-9");
+        transaction.setJustification("Meal");
+        transaction.setStatus(LocalTransaction.TransactionStatus.Pending);
+        transaction.setLocalReceiptInfos(new ArrayList<LocalReceiptInfo>());
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showrecipe);
+
         Intent intent = getIntent();
         localReceiptInfo = (LocalReceiptInfo)intent.getSerializableExtra("data");
+        transaction.addReceiptinfo(localReceiptInfo);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        title = localReceiptInfo.getTitle();
+        price = String.valueOf(localReceiptInfo.getPrice());
+        datetime = localReceiptInfo.getDateTime();
+
+
+
+
+       // spinner = (Spinner) findViewById(R.id.spinner);
         listview = (ListView) findViewById(R.id.listView);
         add = (Button) findViewById(R.id.button01);
         submit = (Button) findViewById(R.id.button02);
@@ -59,37 +88,36 @@ public class ShowrecipeActivity extends Activity implements View.OnClickListener
         listview.setAdapter(listItemAdapter);
 
 
-        adapter = ArrayAdapter.createFromResource(this, R.array.spinner_array, android.R.layout.simple_spinner_item);
+      /*  adapter = ArrayAdapter.createFromResource(this, R.array.spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter); */
 
-        title_list[i++] = title;
-        price_list[i++] = price;
-        date_list[i++] = datetime;
+        title_list.add(title);
+        price_list.add(price);
+        date_list.add(datetime);
         add.setOnClickListener(this);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new ConnectionAsynTask().execute(transaction);
             }
         });
-
-
     }
 
     @Override
     public void onClick(View v) {
 
-        adapter = ArrayAdapter.createFromResource(this, R.array.spinner_array, android.R.layout.simple_spinner_item);
+
+       /* adapter = ArrayAdapter.createFromResource(this, R.array.spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter); */
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
-        for (int j = 0; j < i; j++) {
+        for (int j = 0; j < title_list.size(); j++) {
 
             HashMap<String, String> map = new HashMap<String, String>();
-            map.put("title", title_list[j]);
-            map.put("price", price_list[j]);
-            map.put("date", date_list[j]);
+            map.put("title", title_list.get(j));
+            map.put("price", price_list.get(j));
+            map.put("date", date_list.get(j));
             listItem.add(map);
         }
 
