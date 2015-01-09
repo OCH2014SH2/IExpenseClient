@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OCRDemo</string>
+    <string name="app_name">iExpense</string>
     <string name="TAKE_PHOTO">take photo</string>
     <string name="PHOTO_DESCRIPTION">picture</string>
     <string name="title">Login</string>

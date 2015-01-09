@@ -2,36 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:orientation="vertical"
-              android:layout_marginTop="30dp"
+
+               android:background="#F0FFFF"
               android:layout_height="match_parent" android:weightSum="1">
     <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_weight="0.20" android:layout_marginLeft="30dp">
+                    android:layout_weight="0.20" android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp">
         <TextView
                 android:id="@+id/textview01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="title"
+                android:text="Title"
                 android:layout_centerVertical="true"
-                android:textSize="30dip"
+                android:layout_marginRight="10dp"
+                android:textSize="20dip"
                 />
         <EditText
                 android:layout_toRightOf="@id/textview01"
                 android:layout_alignBottom="@id/textview01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="?android:attr/textViewStyle"
 
-                android:id="@+id/editText01" android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"/>
+
+
+                android:id="@+id/editText01"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
         />
     </RelativeLayout>
     <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_weight="0.2" android:layout_marginLeft="30dp">
+                    android:layout_weight="0.2" android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
         <TextView
                 android:id="@+id/textview02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="price"
-                android:textSize="30dip"
+                android:text="Price"
+                android:textSize="20dip"
                 android:layout_centerVertical="true" android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
               />
@@ -45,24 +54,26 @@
         />
     </RelativeLayout>
     <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_weight="0.20" android:layout_marginLeft="30dp">
+                    android:layout_weight="0.20" android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">>
         <TextView
                 android:id="@+id/textview03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="dateTime"
-                android:textSize="30dip"
+                android:text="Date"
+                android:textSize="20dip"
 
                 android:layout_centerVertical="true"
 
                 />
         <EditText
-                android:layout_toRightOf="@id/textview03"
-                android:layout_alignBottom="@id/textview03"
+            android:layout_alignBottom="@id/textview03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/editText03" android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/textview03"
+            android:layout_toEndOf="@+id/textview03" />
         />
     </RelativeLayout>
     <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -70,17 +81,29 @@
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ps"
-            android:id="@+id/imageView"/>
+            android:src="@drawable/camera"
+            android:id="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.20" />
+
     <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="submit"
-            android:id="@+id/button" android:layout_gravity="right" android:layout_weight="0.18"
-            android:layout_marginRight="23dp" android:layout_marginEnd="23dp" android:layout_centerVertical="true"
+            android:id="@+id/button"
+        android:layout_centerVertical="true"
             android:layout_alignParentRight="true" android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
 
 
 </LinearLayout>
