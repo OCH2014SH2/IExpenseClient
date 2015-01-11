@@ -37,7 +37,7 @@ public class PeriodConnectServerService extends Service {
                     Notification notification = new Notification(R.drawable.iexpense, "a iexpense message", System.currentTimeMillis());
                     Intent notificationIntent = new Intent(ContextApplication.getContext(), ReimburseActivity.class);
                     PendingIntent pi = PendingIntent.getActivity(ContextApplication.getContext(), 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-                    notification.setLatestEventInfo(ContextApplication.getContext(), "IExpense", messageCountNeedToApprove + "request need to be handle", pi);
+                    notification.setLatestEventInfo(ContextApplication.getContext(), "iExpense", messageCountNeedToApprove + " requests need to be handle", pi);
                     manager.notify(1, notification);
                 }
             }

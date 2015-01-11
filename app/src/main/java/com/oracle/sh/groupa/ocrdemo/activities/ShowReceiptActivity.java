@@ -25,6 +25,7 @@ public class ShowReceiptActivity extends Activity implements View.OnClickListene
     private ArrayList<String> title_list = new ArrayList<String>();
     private ArrayList<String> price_list = new ArrayList<String>();
     private ArrayList<String> date_list = new ArrayList<String>();
+    private ArrayList<LocalReceiptInfo> receiptInfos;
     private Button add;
     private Button submit;
 
@@ -49,14 +50,15 @@ public class ShowReceiptActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showreceipt);
 
+        listview = (ListView) findViewById(R.id.list_receipts);
+        add = (Button) findViewById(R.id.button_addReceipt);
+        submit = (Button) findViewById(R.id.button_submitReceipts);
+        // spinner = (Spinner) findViewById(R.id.spinner);
+
         Intent intent = getIntent();
         localReceiptInfo = (LocalReceiptInfo)intent.getSerializableExtra("data");
         transaction.addReceiptinfo(localReceiptInfo);
-
-       // spinner = (Spinner) findViewById(R.id.spinner);
-        listview = (ListView) findViewById(R.id.listView);
-        add = (Button) findViewById(R.id.button01);
-        submit = (Button) findViewById(R.id.button02);
+        receiptInfos.add(localReceiptInfo);
 
         ArrayList<HashMap<String, String>> listItem_init = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map = new HashMap<String, String>();
@@ -82,6 +84,7 @@ public class ShowReceiptActivity extends Activity implements View.OnClickListene
         title_list.add(localReceiptInfo.getTitle());
         price_list.add(String.valueOf(localReceiptInfo.getPrice()));
         date_list.add(localReceiptInfo.getDateTime());
+
         add.setOnClickListener(this);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
