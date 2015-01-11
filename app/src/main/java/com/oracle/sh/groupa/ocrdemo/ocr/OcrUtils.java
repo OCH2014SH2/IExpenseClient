@@ -1,4 +1,4 @@
-package com.oracle.sh.groupa.ocrdemo;
+package com.oracle.sh.groupa.ocrdemo.ocr;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
+import com.oracle.sh.groupa.ocrdemo.R;
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
 
 import java.io.File;

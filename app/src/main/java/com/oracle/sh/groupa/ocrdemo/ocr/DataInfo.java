@@ -1,4 +1,4 @@
-package com.oracle.sh.groupa.ocrdemo;
+package com.oracle.sh.groupa.ocrdemo.ocr;
 
 /**
  * Created by lliyu on 1/7/2015.

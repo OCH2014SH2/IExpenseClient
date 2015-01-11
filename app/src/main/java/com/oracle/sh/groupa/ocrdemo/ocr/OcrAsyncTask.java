@@ -1,4 +1,4 @@
-package com.oracle.sh.groupa.ocrdemo;
+package com.oracle.sh.groupa.ocrdemo.ocr;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;

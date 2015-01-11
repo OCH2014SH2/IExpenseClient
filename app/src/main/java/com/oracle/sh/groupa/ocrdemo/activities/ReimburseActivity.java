@@ -17,10 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.oracle.sh.groupa.ocrdemo.OcrAsyncTask;
-import com.oracle.sh.groupa.ocrdemo.OcrUtils;
+import com.oracle.sh.groupa.ocrdemo.ocr.OcrAsyncTask;
+import com.oracle.sh.groupa.ocrdemo.ocr.OcrUtils;
 import com.oracle.sh.groupa.ocrdemo.R;
-import com.oracle.sh.groupa.ocrdemo.RecogData;
+import com.oracle.sh.groupa.ocrdemo.ocr.RecogData;
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
 
 import java.io.File;
