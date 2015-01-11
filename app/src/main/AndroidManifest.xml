@@ -18,9 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.InfoActivity"/>
+
+        <activity android:launchMode="singleTask" android:name=".activities.InfoActivity"/>
+
         <activity android:name=".activities.QueryActivity"/>
-        <activity android:name=".activities.ShowrecipeActivity"/>
+
+        <activity android:launchMode="singleTask" android:name=".activities.ShowReceiptActivity"/>
+
 
         <service android:name=".service.PeriodConnectServerService"/>
         <receiver android:name=".receiver.AlarmReceiver"/>

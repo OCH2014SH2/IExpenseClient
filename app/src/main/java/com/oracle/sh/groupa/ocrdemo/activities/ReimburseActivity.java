@@ -95,7 +95,7 @@ public class ReimburseActivity extends Activity {
                         et02.getText().toString()=="" ||
                         et03.getText().toString()=="" )
                     return;
-                Intent intent = new Intent(ReimburseActivity.this, ShowrecipeActivity.class);
+                Intent intent = new Intent(ReimburseActivity.this, ShowReceiptActivity.class);
                 localReceiptInfo.setDateTime(et03.getText().toString());
                 localReceiptInfo.setPrice(Double.parseDouble(et02.getText().toString()));
                 localReceiptInfo.setTitle(et01.getText().toString());

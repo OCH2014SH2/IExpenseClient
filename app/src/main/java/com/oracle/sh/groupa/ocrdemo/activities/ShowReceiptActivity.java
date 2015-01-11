@@ -8,12 +8,9 @@ import android.widget.*;
 
 import com.oracle.sh.groupa.ocrdemo.ConnectionAsynTask;
 import com.oracle.sh.groupa.ocrdemo.R;
-import com.oracle.sh.groupa.ocrdemo.RecogData;
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalReceiptInfo;
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalTransaction;
 import com.oracle.sh.groupa.ocrdemo.dataStructure.LocalUser;
-import com.oracle.sh.groupa.ocrdemo.webService.ExpenseManager;
-import com.oracle.sh.groupa.ocrdemo.webService.dataStructure.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,18 +18,15 @@ import java.util.HashMap;
 /**
  * Created by jishshi on 2015/1/8.
  */
-public class ShowrecipeActivity extends Activity implements View.OnClickListener {
+public class ShowReceiptActivity extends Activity implements View.OnClickListener {
     public ListView listview;
     private ArrayAdapter adapter;
     public Spinner spinner;
-    private static ArrayList<String> title_list = new ArrayList<String>();
-    private static ArrayList<String> price_list = new ArrayList<String>();
-    private static ArrayList<String> date_list = new ArrayList<String>();
+    private ArrayList<String> title_list = new ArrayList<String>();
+    private ArrayList<String> price_list = new ArrayList<String>();
+    private ArrayList<String> date_list = new ArrayList<String>();
     private Button add;
     private Button submit;
-    String title;
-    String price;
-    String datetime;
 
     private LocalReceiptInfo localReceiptInfo;
     private static LocalTransaction transaction = new LocalTransaction();
@@ -53,18 +47,11 @@ public class ShowrecipeActivity extends Activity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.showrecipe);
+        setContentView(R.layout.showreceipt);
 
         Intent intent = getIntent();
         localReceiptInfo = (LocalReceiptInfo)intent.getSerializableExtra("data");
         transaction.addReceiptinfo(localReceiptInfo);
-
-        title = localReceiptInfo.getTitle();
-        price = String.valueOf(localReceiptInfo.getPrice());
-        datetime = localReceiptInfo.getDateTime();
-
-
-
 
        // spinner = (Spinner) findViewById(R.id.spinner);
         listview = (ListView) findViewById(R.id.listView);
@@ -73,9 +60,9 @@ public class ShowrecipeActivity extends Activity implements View.OnClickListener
 
         ArrayList<HashMap<String, String>> listItem_init = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("title", title);
-        map.put("price", price);
-        map.put("date", datetime);
+        map.put("title", localReceiptInfo.getTitle());
+        map.put("price", String.valueOf(localReceiptInfo.getPrice()));
+        map.put("date", localReceiptInfo.getDateTime());
         listItem_init.add(map);
         //生成适配器的Item和动态数组对应的元素
         SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem_init,//数据源
@@ -92,9 +79,9 @@ public class ShowrecipeActivity extends Activity implements View.OnClickListener
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter); */
 
-        title_list.add(title);
-        price_list.add(price);
-        date_list.add(datetime);
+        title_list.add(localReceiptInfo.getTitle());
+        price_list.add(String.valueOf(localReceiptInfo.getPrice()));
+        date_list.add(localReceiptInfo.getDateTime());
         add.setOnClickListener(this);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
