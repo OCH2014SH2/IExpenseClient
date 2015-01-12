@@ -9,14 +9,15 @@ import java.io.Serializable;
 /**
  * Created by Alfred on 15/1/8.
  */
-public class LocalReceiptInfo implements Serializable{
+public class LocalReceiptInfo implements Serializable {
+
     private String title;
     private String dateTime;
     private double price;
     private String picName;
-    
+
     public LocalReceiptInfo() {
-        
+
     }
 
     public LocalReceiptInfo(String title, String dateTime, double price, String picName) {

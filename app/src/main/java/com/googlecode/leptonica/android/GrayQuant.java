@@ -23,14 +23,14 @@ public class GrayQuant {
 
     /**
      * Perform simple (pixelwise) binarization with fixed threshold
-     * <p>
+     * <p/>
      * Notes:
      * <ol>
-     * <li> If the source pixel is less than the threshold value, the dest will 
+     * <li> If the source pixel is less than the threshold value, the dest will
      * be 1; otherwise, it will be 0
      * </ol>
      *
-     * @param pixs Source pix (4 or 8 bpp)
+     * @param pixs   Source pix (4 or 8 bpp)
      * @param thresh Threshold value
      * @return a new Pix image, 1 bpp
      */
@@ -50,7 +50,7 @@ public class GrayQuant {
         if (nativePix == 0)
             throw new RuntimeException("Failed to perform binarization");
 
-        return new Pix(nativePix);         
+        return new Pix(nativePix);
     }
 
     // ***************

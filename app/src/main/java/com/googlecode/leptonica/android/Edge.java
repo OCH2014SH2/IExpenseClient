@@ -26,22 +26,28 @@ public class Edge {
 
     // Edge orientation flags
 
-    /** Filters for horizontal edges */
+    /**
+     * Filters for horizontal edges
+     */
     public static final int L_HORIZONTAL_EDGES = 0;
 
-    /** Filters for vertical edges */
+    /**
+     * Filters for vertical edges
+     */
     public static final int L_VERTICAL_EDGES = 1;
 
-    /** Filters for all edges */
+    /**
+     * Filters for all edges
+     */
     public static final int L_ALL_EDGES = 2;
 
     /**
      * Performs a Sobel edge detecting filter.
-     * <p>
+     * <p/>
      * To use both the vertical and horizontal filters, set the orientation
      * flag to L_ALL_EDGES; this sums the abs. value of their outputs,
      * clipped to 255.
-     * <p>
+     * <p/>
      * Notes:
      * <ol>
      * <li> Invert pixd to see larger gradients as darker (grayscale).
@@ -49,18 +55,18 @@ public class Edge {
      * using pixThresholdToBinary().  If the high edge values are to be fg (1),
      * invert after running pixThresholdToBinary().
      * <li> Label the pixels as follows:
-     * <p>
+     * <p/>
      * <p>         1    4    7
      * <p>         2    5    8
      * <p>         3    6    9
-     * <p>
+     * <p/>
      * Read the data incrementally across the image and unroll the loop.
      * <li> This runs at about 45 Mpix/sec on a 3 GHz processor.
      * </ol>
-     * 
-     * @param pixs Source pix (8 bpp; no colormap)
-     * @param orientFlag Edge orientation flag (L_HORIZONTAL_EDGES, 
-     *        L_VERTICAL_EDGES, L_ALL_EDGES)
+     *
+     * @param pixs       Source pix (8 bpp; no colormap)
+     * @param orientFlag Edge orientation flag (L_HORIZONTAL_EDGES,
+     *                   L_VERTICAL_EDGES, L_ALL_EDGES)
      * @return a new Pix image (8bpp, edges are brighter), or null on error
      */
     public static Pix pixSobelEdgeFilter(Pix pixs, int orientFlag) {

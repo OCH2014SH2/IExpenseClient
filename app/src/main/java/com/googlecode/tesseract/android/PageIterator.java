@@ -24,7 +24,9 @@ public class PageIterator {
         System.loadLibrary("tess");
     }
 
-    /** Pointer to native page iterator. */
+    /**
+     * Pointer to native page iterator.
+     */
     private final long mNativePageIterator;
 
     /* package */PageIterator(long nativePageIterator) {
@@ -41,20 +43,20 @@ public class PageIterator {
     /**
      * Moves to the start of the next object at the given level in the page
      * hierarchy, and returns false if the end of the page was reached.
-     * <p>
+     * <p/>
      * NOTE that {@link PageIteratorLevel#RIL_SYMBOL} will skip non-text blocks,
      * but all other {@link PageIteratorLevel} level values will visit each
      * non-text block once. Think of non text blocks as containing a single
      * para, with a single line, with a single imaginary word.
-     * <p>
+     * <p/>
      * Calls to {@link #next} with different levels may be freely intermixed.
-     * <p>
+     * <p/>
      * This function iterates words in right-to-left scripts correctly, if the
      * appropriate language has been loaded into Tesseract.
      *
      * @param level the page iterator level. See {@link PageIteratorLevel}.
      * @return {@code false} if the end of the page was reached, {@code true}
-     *         otherwise.
+     * otherwise.
      */
     public boolean next(int level) {
         return nativeNext(mNativePageIterator, level);
@@ -62,7 +64,7 @@ public class PageIterator {
 
     /**
      * Get bounding box: x, y, w, h
-     * 
+     * <p/>
      * ============= Accessing data ==============.
      * Coordinate system:
      * Integer coordinates are at the cracks between the pixels.
@@ -75,19 +77,21 @@ public class PageIterator {
      * (0,0)->(1,1).
      * If an image rectangle has been set in the API, then returned coordinates
      * relate to the original (full) image, rather than the rectangle.
-     *
+     * <p/>
      * Returns the bounding rectangle of the current object at the given level.
      * See comment on coordinate system above.
      * The returned bounding box may clip foreground pixels from a grey image.
-     * 
+     *
      * @param level the page iterator level. See {@link PageIteratorLevel}.
      * @return the bounding rectangle of the current object at the given level
      */
-    public int[] getBoundingBox(int level){
-    	return nativeBoundingBox(mNativePageIterator, level);
+    public int[] getBoundingBox(int level) {
+        return nativeBoundingBox(mNativePageIterator, level);
     }
-    
+
     private static native void nativeBegin(long nativeIterator);
+
     private static native boolean nativeNext(long nativeIterator, int level);
+
     private static native int[] nativeBoundingBox(long nativeIterator, int level);
 }

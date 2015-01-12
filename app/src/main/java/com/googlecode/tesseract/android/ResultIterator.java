@@ -37,7 +37,9 @@ public class ResultIterator extends PageIterator {
         System.loadLibrary("tess");
     }
 
-    /** Pointer to native result iterator. */
+    /**
+     * Pointer to native result iterator.
+     */
     private final long mNativeResultIterator;
 
     /* package */ResultIterator(long nativeResultIterator) {
@@ -68,11 +70,11 @@ public class ResultIterator extends PageIterator {
     }
 
     /**
-     * Returns all possible matching text strings and their confidence level 
+     * Returns all possible matching text strings and their confidence level
      * for the current object at the given level.
-     * <p>
-     * The default matching text is blank (""). 
-     * The default confidence level is zero (0.0) 
+     * <p/>
+     * The default matching text is blank ("").
+     * The default confidence level is zero (0.0)
      *
      * @param level the page iterator level. See {@link PageIteratorLevel}.
      * @return A list of pairs with the UTF string and the confidence
@@ -84,7 +86,7 @@ public class ResultIterator extends PageIterator {
         // Create the output list
         ArrayList<Pair<String, Double>> pairedResults = new ArrayList<Pair<String, Double>>();
 
-        for (int i = 0; i < nativeChoices.length; i++ ) {
+        for (int i = 0; i < nativeChoices.length; i++) {
             // The string and the confidence level are separated by a '|'
             int separatorPosition = nativeChoices[i].lastIndexOf('|');
 
@@ -98,7 +100,7 @@ public class ResultIterator extends PageIterator {
                 try {
                     confidenceLevel = Double.parseDouble(nativeChoices[i].substring(separatorPosition + 1));
                 } catch (NumberFormatException e) {
-                    Log.e("ResultIterator","Invalid confidence level for " + nativeChoices[i]);
+                    Log.e("ResultIterator", "Invalid confidence level for " + nativeChoices[i]);
                 }
             } else {
                 // If the string contains no '|' then save the full native result as the utfString
@@ -106,7 +108,7 @@ public class ResultIterator extends PageIterator {
             }
 
             // Add the UTF string to the results
-            pairedResults.add(new Pair<String, Double> (utfString, confidenceLevel));
+            pairedResults.add(new Pair<String, Double>(utfString, confidenceLevel));
         }
 
         return pairedResults;
@@ -115,5 +117,6 @@ public class ResultIterator extends PageIterator {
     private static native String[] nativeGetChoices(long nativeResultIterator, int level);
 
     private static native String nativeGetUTF8Text(long nativeResultIterator, int level);
+
     private static native float nativeConfidence(long nativeResultIterator, int level);
 }

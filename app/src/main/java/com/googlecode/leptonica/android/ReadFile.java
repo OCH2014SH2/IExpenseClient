@@ -58,8 +58,8 @@ public class ReadFile {
      * Creates an 8bpp Pix object from raw 8bpp grayscale pixels.
      *
      * @param pixelData 8bpp grayscale pixel data.
-     * @param width The width of the input image.
-     * @param height The height of the input image.
+     * @param width     The width of the input image.
+     * @param height    The height of the input image.
      * @return an 8bpp Pix object
      */
     public static Pix readBytes8(byte[] pixelData, int width, int height) {
@@ -84,10 +84,10 @@ public class ReadFile {
      * Replaces the bytes in an 8bpp Pix object with raw grayscale 8bpp pixels.
      * Width and height be identical to the input Pix.
      *
-     * @param pixs The Pix whose bytes will be replaced.
+     * @param pixs      The Pix whose bytes will be replaced.
      * @param pixelData 8bpp grayscale pixel data.
-     * @param width The width of the input image.
-     * @param height The height of the input image.
+     * @param width     The width of the input image.
+     * @param height    The height of the input image.
      * @return an 8bpp Pix object
      */
     public static boolean replaceBytes8(Pix pixs, byte[] pixelData, int width, int height) {
@@ -113,7 +113,7 @@ public class ReadFile {
      * Creates a Pixa object from encoded files in a directory. Supported
      * formats are BMP and JPEG.
      *
-     * @param dir The directory containing the files.
+     * @param dir    The directory containing the files.
      * @param prefix The prefix of the files to load into a Pixa.
      * @return a Pixa object containing one Pix for each file
      */

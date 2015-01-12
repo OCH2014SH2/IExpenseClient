@@ -11,9 +11,9 @@ import java.util.ArrayList;
  */
 public class LocalTransaction {
     private int id;                                 //when the instance created, the id will be set
-                                                    //to 0. It will be modified when the server side
-                                                    //create a transaction record. It will be used
-                                                    //when query the whole information.
+    //to 0. It will be modified when the server side
+    //create a transaction record. It will be used
+    //when query the whole information.
     private String dateTime;
     private ArrayList<LocalReceiptInfo> localReceiptInfos;
     private double totalPrice;

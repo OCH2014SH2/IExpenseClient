@@ -24,7 +24,7 @@ public class ExpenseManager {
     public static WebServiceAPI webServiceAPI;
     public static String STORE_DIR = "/mnt/sdcard/";
 
-    public ExpenseManager(){
+    public ExpenseManager() {
         this.webServiceAPI = new WebServiceAPI();
     }
 
@@ -97,13 +97,13 @@ public class ExpenseManager {
             // Convert bytes string into image and store it
             byte[] data = new BASE64Decoder().decodeBuffer(imgDataStr);   //∂‘android¥´π˝¿¥µƒÕº∆¨◊÷∑˚¥ÆΩ¯––Ω‚¬Î
             File destDir = new File(STORE_DIR);
-            if(!destDir.exists())
+            if (!destDir.exists())
                 destDir.mkdir();
-            fout = new FileOutputStream(new File(destDir,fileName));   //±£¥ÊÕº∆¨
+            fout = new FileOutputStream(new File(destDir, fileName));   //±£¥ÊÕº∆¨
             fout.write(data);
             fout.flush();
             fout.close();
-            path = STORE_DIR+fileName;
+            path = STORE_DIR + fileName;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -123,7 +123,7 @@ public class ExpenseManager {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int count = 0;
-            while((count = fis.read(buffer)) >= 0) {
+            while ((count = fis.read(buffer)) >= 0) {
                 baos.write(buffer, 0, count);
             }
             bytesStr = new String(Base64.encode(baos.toByteArray()));  //Ω¯––Base64±‡¬Î

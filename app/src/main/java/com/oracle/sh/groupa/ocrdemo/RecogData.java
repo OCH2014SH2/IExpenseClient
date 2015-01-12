@@ -14,7 +14,6 @@ public class RecogData {
     private Activity activity;
 
 
-
     private String picFileName;
 
     public RecogData(Activity activity) {

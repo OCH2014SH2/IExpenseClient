@@ -5,9 +5,9 @@ package com.oracle.sh.groupa.ocrdemo.dataStructure;
  */
 public class LocalTransactionBriefInfo {
     private int id;                                 //when the instance created, the id will be set
-                                                    //to 0. It will be modified when the server side
-                                                    //create a transaction record. It will be used
-                                                    //when query the whole information.
+    //to 0. It will be modified when the server side
+    //create a transaction record. It will be used
+    //when query the whole information.
     private String dateTime;
     private int receiptAmount;
     private double totalPrice;

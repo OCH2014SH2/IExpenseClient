@@ -113,7 +113,7 @@ public class LocalUser {
         this.bankName = bankName;
     }
 
-    public User toUser(){
+    public User toUser() {
         User user = new User();
         user.setEmployeId(String.valueOf(this.getEmpId()));
         user.setBankAccount(this.getBankAccount());

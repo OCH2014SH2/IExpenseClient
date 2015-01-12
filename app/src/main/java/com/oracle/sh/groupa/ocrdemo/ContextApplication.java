@@ -13,7 +13,8 @@ public class ContextApplication extends Application {
     public void onCreate() {
         context = getApplicationContext();
     }
-    public static Context getContext(){
+
+    public static Context getContext() {
         return context;
     }
 }
