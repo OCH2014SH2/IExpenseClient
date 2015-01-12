@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_gravity="fill_horizontal"
     android:orientation="vertical"
+
     android:weightSum="1">
 
     <ImageView
@@ -21,6 +22,7 @@
         android:background="@drawable/iexpense"/>
 
     <LinearLayout
+
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
