@@ -3,7 +3,7 @@ package com.oracle.sh.groupa.ocrdemo.ocr;
 /**
  * Created by lliyu on 1/7/2015.
  */
-public class DataInfo {
+public class ReceiptDataInfo {
 
     public static final String FAPIAO_TITLE = "名称";
     public static final String FAPIAO_PRICE = "元";

@@ -83,8 +83,8 @@ public class OcrUtils {
     public static LocalReceiptInfo getDataFromRecogText(RecogData recogData) {
         if (recogData == null)
             return null;
-        DataInfo dataInfo = new DataInfo();
-        String[] items = {DataInfo.FAPIAO_DATE, DataInfo.FAPIAO_PRICE, DataInfo.FAPIAO_TITLE};
+        ReceiptDataInfo receiptDataInfo = new ReceiptDataInfo();
+        String[] items = {ReceiptDataInfo.FAPIAO_DATE, ReceiptDataInfo.FAPIAO_PRICE, ReceiptDataInfo.FAPIAO_TITLE};
         String recognizedText = recogData.getRecognizedText();
         String[] lines = recognizedText.split("\n");
         for (String line : lines) {
@@ -93,11 +93,11 @@ public class OcrUtils {
                     String temp = null;
                     int index;
                     switch (item) {
-                        case DataInfo.FAPIAO_TITLE:
+                        case ReceiptDataInfo.FAPIAO_TITLE:
                             temp = line.substring(line.indexOf(item) + item.length(), line.length() - 1);
-                            dataInfo.setName(temp);
+                            receiptDataInfo.setName(temp);
                             break;
-                        case DataInfo.FAPIAO_PRICE:
+                        case ReceiptDataInfo.FAPIAO_PRICE:
                             index = line.indexOf(item);
                             temp = "";
                             while (index > 0) {
@@ -109,9 +109,9 @@ public class OcrUtils {
                             }
                             StringBuffer sb = new StringBuffer(temp);
                             temp = sb.reverse().toString();
-                            dataInfo.setPrice(temp);
+                            receiptDataInfo.setPrice(temp);
                             break;
-                        case DataInfo.FAPIAO_DATE:
+                        case ReceiptDataInfo.FAPIAO_DATE:
                             index = line.indexOf(item) + item.length();
                             temp = "";
                             while (index < line.length()) {
@@ -121,7 +121,7 @@ public class OcrUtils {
                                 else
                                     break;
                             }
-                            dataInfo.setDate(temp);
+                            receiptDataInfo.setDate(temp);
                             break;
                         default:
                             break;
@@ -131,7 +131,7 @@ public class OcrUtils {
         }
         double price = 0.0;
         try{
-            price=Double.parseDouble(dataInfo.getPrice());
+            price=Double.parseDouble(receiptDataInfo.getPrice());
         }
         catch (Exception e){
             price=0.0;
@@ -139,7 +139,7 @@ public class OcrUtils {
         }
 
         String picAbsolutePath = PHOTO_DIR + recogData.getPicFileName();
-        return new LocalReceiptInfo(dataInfo.getName(), dataInfo.getDate(), price, picAbsolutePath);
+        return new LocalReceiptInfo(receiptDataInfo.getName(), receiptDataInfo.getDate(), price, picAbsolutePath);
 
     }
 

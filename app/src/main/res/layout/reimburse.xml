@@ -27,7 +27,7 @@
 
 
 
-                android:id="@+id/editText01"
+                android:id="@+id/editTextTitle"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
         />
@@ -48,7 +48,7 @@
                 android:layout_alignBottom="@id/textview02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText02" android:layout_alignParentRight="true"
+                android:id="@+id/editTextPrice" android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" android:layout_toRightOf="@+id/textview02"
                 android:layout_toEndOf="@+id/textview02"/>
         />
@@ -70,7 +70,7 @@
             android:layout_alignBottom="@id/textview03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText03" android:layout_alignParentRight="true"
+                android:id="@+id/editTextTime" android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
             android:layout_toRightOf="@+id/textview03"
             android:layout_toEndOf="@+id/textview03" />
@@ -88,13 +88,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
     </RelativeLayout>
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.20" />
 
     <Button
             android:layout_width="match_parent"

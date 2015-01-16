@@ -62,7 +62,7 @@ public class Receipt implements java.io.Serializable {
     public LocalReceiptInfo toLocalReceiptInfo() {
         LocalReceiptInfo localReceiptInfo = new LocalReceiptInfo();
         localReceiptInfo.setDateTime(this.getDate());
-        localReceiptInfo.setPicName(this.getImgUrl());
+        localReceiptInfo.setPicPath(this.getImgUrl());
         localReceiptInfo.setTitle(this.getTitle());
         localReceiptInfo.setPrice(this.getAmount());
 

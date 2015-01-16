@@ -37,9 +37,9 @@ public class ReimburseActivity extends Activity {
 
     private Button button;
     private ImageView imageView;
-    private EditText et01;
-    private EditText et02;
-    private EditText et03;
+    private EditText editTextTitle;
+    private EditText editTextPrice;
+    private EditText editTextTime;
 
     private ProgressDialog dialog;
 
@@ -59,9 +59,9 @@ public class ReimburseActivity extends Activity {
                 case OcrAsyncTask.OCR_END:
                     localReceiptInfo = OcrUtils.getDataFromRecogText(recogData);
 
-                    et01.setText(localReceiptInfo.getTitle());
-                    et02.setText(String.valueOf(localReceiptInfo.getPrice()));
-                    et03.setText(localReceiptInfo.getDateTime());
+                    editTextTitle.setText(localReceiptInfo.getTitle());
+                    editTextPrice.setText(String.valueOf(localReceiptInfo.getPrice()));
+                    editTextTime.setText(localReceiptInfo.getDateTime());
 
                     dialog.dismiss();
                     break;
@@ -82,25 +82,22 @@ public class ReimburseActivity extends Activity {
 
         initActivity();
         imageView = (ImageView) findViewById(R.id.imageView);
-        et01 = (EditText) findViewById(R.id.editText01);
-        et02 = (EditText) findViewById(R.id.editText02);
-        et03 = (EditText) findViewById(R.id.editText03);
+        editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        editTextPrice = (EditText) findViewById(R.id.editTextPrice);
+        editTextTime = (EditText) findViewById(R.id.editTextTime);
         button = (Button) findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(imageView==null || et01 == null || et02 ==null || et03 == null ||
-                        et01.getText().toString()=="" ||
-                        et02.getText().toString()=="" ||
-                        et03.getText().toString()=="" )
+                if(localReceiptInfo == null)
                     return;
-                Intent intent = new Intent(ReimburseActivity.this, ShowReceiptActivity.class);
-                localReceiptInfo.setDateTime(et03.getText().toString());
-                localReceiptInfo.setPrice(Double.parseDouble(et02.getText().toString()));
-                localReceiptInfo.setTitle(et01.getText().toString());
+                localReceiptInfo.setDateTime(editTextTime.getText().toString());
+                localReceiptInfo.setPrice(Double.parseDouble(editTextPrice.getText().toString()));
+                localReceiptInfo.setTitle(editTextTitle.getText().toString());
 
-                intent.putExtra("data", (Serializable)localReceiptInfo);
+                Intent intent = new Intent(ReimburseActivity.this, ShowReceiptActivity.class);
+                intent.putExtra("data", localReceiptInfo);
                 startActivity(intent);
             }
         });
